@@ -97,3 +97,52 @@ body {
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size:xx-large;
 }
+
+.banner{
+  background-image: url('../images/Banner.jpg');
+  height: 200px;
+  width: 100%;
+  border-radius: 8px;
+
+}
+
+.banner h1{
+  color: white;
+}
+
+.btn1 .btn2{
+  background-color: #FFA654;
+}
+button{
+  background-color: #FFA654;
+  border-radius: 8px;
+  font-size: 16px;
+  padding: 5px 15px;
+   margin-top: 120px;
+   position: static;
+   
+}
+
+
+.urgent-cause{
+  height: 300px;
+  background-color: #FDC48D;
+  margin-top: 75px;
+  border-radius: 8px;
+}
+
+.urgent-cause img{
+  height: 100%;
+  width: 50%;
+}
+
+.urgent-text{
+  float: right;
+  width: 50%;
+  height: 100%;
+}
+
+.urgent-text h1 h2 p{
+  color: #696B4D;
+  font-family: 'Playfair Display', serif;
+}
