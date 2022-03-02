@@ -110,7 +110,7 @@ def loginAction():
       if user and user.check_password(data['password']): 
         flash('Logged in successfully.') 
         login_user(user) 
-        return redirect(url_for('todos')) 
+        return redirect(url_for('index')) 
   flash('Invalid credentials')
   return redirect(url_for('index'))
 
