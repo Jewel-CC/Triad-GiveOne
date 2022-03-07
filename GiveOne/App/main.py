@@ -1,6 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, flash, url_for
-#from flask_jwt import JWT
+from flask import Flask, request, jsonify, render_template, redirect, flash, url_for, jsonify
 from datetime import timedelta 
 from flask_cors import CORS
 from flask_login import LoginManager, current_user, login_user, login_required
@@ -36,28 +35,13 @@ def loadConfig(app, config):
     else:
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
         app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-        app.config['JWT_EXPIRATION_DELTA'] = os.environ.get('JWT_EXPIRATION_DELTA')
+        #app.config['JWT_EXPIRATION_DELTA'] = os.environ.get('JWT_EXPIRATION_DELTA')
         app.config['DEBUG'] = os.environ.get('DEBUG')
         app.config['ENV'] = os.environ.get('ENV')
 
     for key,value in config.items():
         app.config[key] = config[key]
         
-        
-###
-#''' Set up JWT here (if using flask JWT)'''
-#def authenticate(email, password):
-  #user = User.query.filter_by(email=email).first()
-  #if user and user.check_password(password):
-    #return user
-
-#Payload is a dictionary which is passed to the function by Flask JWT
-#def identity(payload):
-  #return User.query.get(payload['identity'])
-
-
-#''' End JWT Setup '''
-###
 
 ###Implementing Flask-login###
 #Start
@@ -108,10 +92,10 @@ def loginAction():
       data = request.form
       user = User.query.filter_by(username = data['username']).first()
       if user and user.check_password(data['password']): 
-        flash('Logged in successfully.') 
+        flash('Successfully logged in!') 
         login_user(user) 
-        return redirect(url_for('todos')) 
-  flash('Invalid credentials')
+        return redirect(url_for('index')) 
+  flash('Wrong email/password!')
   return redirect(url_for('index'))
 
 #logout
@@ -119,7 +103,7 @@ def loginAction():
 @login_required
 def logout():
   logout_user()
-  flash('Logged Out!')
+  flash('Logging out...')
   return redirect(url_for('index')) 
 
 #signup
@@ -137,9 +121,9 @@ def signupAction():
     newuser.set_password(data['password']) 
     db.session.add(newuser) 
     db.session.commit()
-    flash('Account Created!')
+    flash('Success! Account created!')
     return redirect(url_for('index'))
-  flash('Error invalid input!')
+  flash('Invalid input, please check over your details!')
   return redirect(url_for('signup')) 
 
 
