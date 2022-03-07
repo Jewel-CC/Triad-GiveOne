@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, render_template, redirect, flash, url_for, jsonify
+from flask import Flask, render_template, redirect, flash, url_for
 #from flask_jwt import JWT
 from datetime import timedelta 
 from flask_cors import CORS
@@ -95,7 +95,7 @@ if __name__ == "__main__":
 ###Start All account related routes:###
 
 #login
-@app.route('/', methods=['GET'])
+@app.route('/login', methods=['GET'])
 def index():
   form = LogIn()
   return render_template('login.html', form=form)
@@ -141,5 +141,12 @@ def signupAction():
     return redirect(url_for('index'))
   flash('Error invalid input!')
   return redirect(url_for('signup')) 
+
+
+#homepage
+@app.route('/', methods=['GET'])
+def index():
+
+  return render_template('index.html')
 
 ###End###
