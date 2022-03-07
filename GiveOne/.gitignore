@@ -1,8 +1,0 @@
-node_modules
-__pycache__/
-**.pyc
-*.py[cod]
-*$py.class
-
-App/test.db
-App/temp-dataase.db
