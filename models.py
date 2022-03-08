@@ -61,7 +61,7 @@ class User(db.Model, UserMixin):
     class Getter(db.Model):
         id = db.Column(db.Integer,primary_key=True)
        # ver_status = db.Column(db.bool, nullable=False)
-        requests = db.Column(relationship("Request", backref="Getter"))
+       # requests = db.Column(relationship("Request", backref="Getter"))
 
 
         def toDict(self):
