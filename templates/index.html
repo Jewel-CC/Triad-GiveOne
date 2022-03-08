@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block title %}Flask MVC App{% endblock %}
+{% block page %}Flask MVC App{% endblock %}
+
+{{ super() }}
+
+{% block content %} 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <div class="banner" > 
+       <h1> Each one GiveOne</h1>
+
+    <div class="buttons">
+    <button class="bt1">
+     Make a donation   
+    </button class="bt2">
+   
+    <button> 
+    Make a request
+    </button>    
+    </div>
+   
+    <div class="urgent-cause">
+     
+         <img src="../images/urgent.png">  
+        
+
+     <div class="urgent-text">
+    <center> 
+       <u  style="color: #696B4D;"> <h1 style="color: #696B4D; font-family: 'Playfair Display', serif;" > Urgent Cause </h1> </u>
+       <h2 style="color: #696B4D; font-family: 'Playfair Display', serif;"> Formula needed for premature baby</h2>
+       <p style="color: #696B4D; font-family: 'Playfair Display', serif;">   My baby Keston was born premature and with heart complications. With my salary and his medical expenses its become so hard to support him in the way he needs ... </p>
+    </center> 
+    </div>
+
+    </div>
+<footer style="color:orange">
+
+</footer>
+{% endblock %}
+    
