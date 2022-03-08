@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<style type="text/css">
+  .brand-logo{
+    margin-left: 10px;
+    color: #d50000; 
+  }
+  body{
+    background-color: #d3d3d3;
+  }
+  
+</style>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Test</title>
+    </head>
+
+    <body>
+      <ul id="dropdown1" class="dropdown-content">
+        <li><a href="=#">one</a></li>
+      </ul>
+
+      <nav class="nav-extended black">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo red-text" >FitBook</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/logout" style="color:#d50000">Log Out</a></li>
+      </ul>
+    </div>
+    <div class="nav-content red accent-4">
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><a href ="/home">Dashboard</a></li>
+        <li class="tab"><a href="/workouts">Workouts</a></li>
+        <li class="tab"><a class ="active dropdown-trigger" data-activates="dropdown1" href="/forum">Forum</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="/">Sass</a></li>
+    <li><a href="badges.html">Components</a></li>
+    <li><a href="collapsible.html">Log Out</a></li>
+  </ul>
+
+
+  
+<div class="container">
+  <div class="row">
+    <h5 class="center">Update Post</h5>
+  </div>
+</div>
+        
+    
+    <div id ="post" class ="container">
+  <div class="divider black"></div>
+  <div class="section">
+    <h8><a style="color:red">Post by {{update.author}}</a></h8>
+    <p class ="">{{update.content}}</p>
+    </div>
+  </div>
+
+      <div class ="container">
+      <div class="row">
+        <form id="myForm" class="col s12 m8 offset-m2" method="POST" action="/updatep?id={{update.id}}">
+            {{ form.csrf_token }}
+
+            <div class="input-field col s10">
+              {{ form.content(size=20, class="validate") }}
+              
+            </div>
+            <div class ="row">
+            <div class=" right input-field">
+              {{form.submit}}
+            </div> 
+        </form>
+      </div>
+    </div>
+      
+  </div>
+
+     
+  
+
+
+
+  </div>
+  
+
+      <!--JavaScript at end of body for optimized loading-->
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script type="text/JavaScript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        
+    </body>
+  </html>
+        
