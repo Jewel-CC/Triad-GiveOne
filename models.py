@@ -1,79 +1,106 @@
+from ctypes import addressof
+import datetime
+
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
+from pytest import Item
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.orm import relationship
+from flask_login import UserMixin
+
 
 db = SQLAlchemy()
 
 
-class User(UserMixin,db.Model):
-	id = db.Column(db.Integer,primary_key=True)
-	username = db.Column(db.String(80),nullable=False,unique=True)
-	email = db.Column(db.String(120),nullable=False,unique=True)
-	password = db.Column(db.String(120),nullable=False,unique=True)
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name =  db.Column(db.String, nullable=False)
+    last_name =  db.Column(db.String, nullable=False)
+    username =  db.Column(db.String(80), unique=True, nullable=False)
+    bio =  db.Column(db.String(220), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    address = db.Column(db.String(120), unique=True, nullable=False)
+    dob = db.Column(db.Date, unique=True, nullable=False)
+
+
+    def toDict(self):
+        return{
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'username': self.username,
+            'email': self.email,
+            'bio': self.bio,
+            'password':self.password,
+            'address':self.address,
+            'dob':self.dob
+        }
+
+    def set_password(self, password):
+        """Create hashed password."""
+        self.password = generate_password_hash(password, method='sha256')
+    
+    def check_password(self, password):
+        """Check hashed password."""
+        return check_password_hash(self.password, password)
+    
+    def __repr__(self):
+        return '<User {}>'.format(self.email) 
+
+    class Giver(db.Model):
+        id = db.Column(db.Integer,primary_key=True)
+        donation = relationship("Request", backref="Giver")
+    
+
+        def toDict(self):
+            return{
+                'id':self.id,
+                'donation': self.donation
+            }
+
+    class Getter(db.Model):
+        id = db.Column(db.Integer,primary_key=True)
+       # ver_status = db.Column(db.bool, nullable=False)
+        requests = db.Column(relationship("Request", backref="Getter"))
+
+
+        def toDict(self):
+            return{
+            'id':self.id,
+            'ver_status': self.ver_status   
+            }
+    
+    class Request(db.Model):
+        id = db.Column(db.Integer,primary_key=True)
+        title = db.Column(db.String(120), nullable=False)
+        status = db.Column(db.bool, nullable=False) #add default value
+        description = db.Column(db.String, nullable=False) 
+        item = relationship("Item", backref="Request", nullable=False)
+        category = db.column(db.String(80), nullable=True)
+        urgent = db.Column(db.bool, nullable=False)
+
+        def toDict(self):
+            return{
+            'id':self.id,
+            'title':self.title,
+            'status': self.status,
+            'description': self.description, 
+            'item': self.item,
+            'category': self.category,
+            'urgent':self.urgent   
+            }
+    
+    class Item(db.Model):
+        id = db.Column(db.Integer,primary_key=True)
+        name = db.Column(db.String(80), nullable=False)
+        quantity = db.Column(db.Integer) 
+        
+
+
+        def toDict(self):
+            return{
+            'id':self.id,
+            'name':self.name,
+            'quantity':self.quantity
+            }
 	
-	def toDict(self):
-		return{
-		"id":self.id,
-		"username":self.username,
-		"email":self.email,
-		"password":self.password
-		}
-
-	def set_password(self,password):
-		self.password = generate_password_hash(password, method='sha256')
-
-	def check_password(self,password):
-		return check_password_hash(self.password,password)
-
-class Topic(db.Model):
-	id = db.Column(db.Integer,primary_key=True)
-	Title = db.Column(db.String(80),nullable=True)
-	content = content = db.Column(db.Text,nullable=True)
-
-
-class Post(db.Model):
-	id = db.Column(db.Integer,primary_key=True)
-	content = db.Column(db.Text,nullable=True)
-	topic = db.Column(db.String(80),nullable=True)
-	rating = db.Column(db.Integer)
-	author = db.Column(db.String(80),nullable=True)
-	
-	def toDict(self): 
-		return{
-		"id":self.id,
-		"content":self.content,
-		}
-		
-class Activity(db.Model):
-	id = db.Column(db.Integer,primary_key=True)
-	name = db.Column(db.String(80),nullable=True)
-	type = db.Column(db.String(80),nullable=True)
-	topic = db.Column(db.String(80),nullable = True)
-
-class Workout(db.Model):
-	id = db.Column(db.Integer,primary_key=True)
-	name = db.Column(db.String(80),nullable=True)
-	author = db.Column(db.String(80),nullable=True)
-	E1 = db.Column(db.Integer,nullable=True)
-	E2 = db.Column(db.Integer,nullable=True)
-	E3 = db.Column(db.Integer,nullable=True)
-	E4 = db.Column(db.Integer,nullable=True)
-	E5 = db.Column(db.Integer,nullable=True)
-	R1 = db.Column(db.Integer,nullable=True)
-	R2 = db.Column(db.Integer,nullable=True)
-	R3 = db.Column(db.Integer,nullable=True)
-	R4 = db.Column(db.Integer,nullable=True)
-	R5 = db.Column(db.Integer,nullable=True)
-	S1 = db.Column(db.Integer,nullable=True)
-	S2 = db.Column(db.Integer,nullable=True)
-	S3 = db.Column(db.Integer,nullable=True)
-	S4 = db.Column(db.Integer,nullable=True)
-	S5 = db.Column(db.Integer,nullable=True)
-
-	def toDict(self):
-		return{
-		"id":self.id,
-		"content":self.content,
-		}
-	
-
