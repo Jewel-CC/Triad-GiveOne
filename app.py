@@ -1,8 +1,8 @@
 import json
-from flask import Flask,request,redirect,url_for
+from flask import Flask,request,redirect,url_for,flash
 from flask import render_template
-from forms import SignUp,Login,NewPost,NewTopic,NewWorkout
-from models import db,User,Post,Topic,Workout,Activity
+from forms import SignUp,Login,newRequest,newDonation
+from models import db,User,Giver,Getter,Request,Item
 from flask_login import LoginManager, current_user, login_user,logout_user,login_required
 from sqlalchemy.exc import IntegrityError
 
@@ -22,13 +22,13 @@ app.app_context().push()
 db.create_all(app=app)
 
 
-#------Login--------------------------	----------------------#
-
+#Render homepage
 @app.route("/", methods =['GET'])
 def login():
 	form = Login()
 	return render_template('index.html', form = form)
 
+#Login route, render login page
 @app.route("/login", methods =['POST'])
 def loginUser():
 	form = Login()
@@ -39,10 +39,7 @@ def loginUser():
 		return redirect(url_for('home'))
 	return render_template('index.html', form = form)
 
-#------------------------------------------------------------
-
-#--------SIGN UP--------------------------------------------#
-
+#Signup route, render signup page
 @app.route("/signup", methods=['GET'])
 def signup():
 	form = SignUp()
@@ -60,17 +57,12 @@ def newUser():
 		return redirect(url_for('login'))
 	return redirect(url_for('signup'))
 
-#-----------------------------------------------------------#
-
-#--------LogOut---------------------------------------------#
-
+#Logout route
 @app.route("/logout", methods =['GET'])
 @login_required
 def LogOut():
 	logout_user()
 	return redirect(url_for('login'))
-#----------------------------------------------------------#
-
 
 @app.route("/test<name>", methods =['GET'])
 def test(name):
