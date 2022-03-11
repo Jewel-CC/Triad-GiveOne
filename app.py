@@ -72,6 +72,11 @@ def LogOut():
 #----------------------------------------------------------#
 
 
+@app.route("/test<name>", methods =['GET'])
+def test(name):
+	return render_template('test.html', name=name)
+
+
 if __name__ == '__main__':
 	app.run()
 
