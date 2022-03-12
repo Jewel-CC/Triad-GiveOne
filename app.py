@@ -21,48 +21,53 @@ login_manager.init_app(app)
 app.app_context().push()
 db.create_all(app=app)
 
-
-#Render homepage
-@app.route("/", methods =['GET'])
-def login():
-	form = Login()
-	return render_template('index.html', form = form)
-
 #Login route, render login page
-@app.route("/login", methods =['POST'])
-def loginUser():
-	form = Login()
-	data = request.form
-	user = User.query.filter_by(username = data['username']).first()
-	if user and user.check_password(data['password']):
-		login_user(user)
-		return redirect(url_for('home'))
-	return render_template('index.html', form = form)
+@app.route('/', methods=['GET'])
+def index():
+  form = LogIn()
+  return render_template('login.html', form=form)
+
+#user submits the login form
+@app.route('/login', methods=['POST'])
+def loginAction():
+  form = LogIn()
+  if form.validate_on_submit(): 
+      data = request.form
+      user = User.query.filter_by(username = data['username']).first()
+      if user and user.check_password(data['password']): 
+        flash('Logged in successfully.') 
+        login_user(user) 
+        return redirect(url_for('/')) #Edit to include redirect to main page
+  flash('Invalid credentials')
+  return redirect(url_for('index'))
 
 #Signup route, render signup page
-@app.route("/signup", methods=['GET'])
+@app.route('/signup', methods=['GET'])
 def signup():
-	form = SignUp()
-	return render_template('SignUp.html', form = form)
+  form = SignUp() 
+  return render_template('signup.html', form=form) 
 
-@app.route("/signup", methods=['POST'])
-def newUser():
-	form = SignUp()
-	if form:
-		data = request.form
-		newUser = User(username = data['username'], email = data['email'])
-		newUser.set_password(data['password'])
-		db.session.add(newUser)
-		db.session.commit()
-		return redirect(url_for('login'))
-	return redirect(url_for('signup'))
+@app.route('/signup', methods=['POST'])
+def signupAction():
+  form = SignUp() 
+  if form.validate_on_submit():
+    data = request.form 
+    newuser = User(username=data['username'], email=data['email']) 
+    newuser.set_password(data['password']) 
+    db.session.add(newuser) 
+    db.session.commit()
+    flash('Account Created!')
+    return redirect(url_for('index')) #Redirect to login page
+  flash('Error invalid input!')
+  return redirect(url_for('signup')) 
 
 #Logout route
-@app.route("/logout", methods =['GET'])
+@app.route('/logout', methods=['GET'])
 @login_required
-def LogOut():
-	logout_user()
-	return redirect(url_for('login'))
+def logout():
+  logout_user()
+  flash('Logged Out!')
+  return redirect(url_for('index')) 
 
 @app.route("/test<name>", methods =['GET'])
 def test(name):
