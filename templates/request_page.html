@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>GiveOne</title>
+        <link rel="stylesheet" href="../static/request_page.css">
+        <!-- Materialize css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
+        <!-- Get fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">  
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="mycontainer">
+            <div class="row">
+                <nav class="col s12 nav-bar">
+                    <div class="logo-div">
+                        <img src="/images/GiveOneLogo.png" alt="GiveOne logo" class="logo">
+                        <h1 class="title text">GiveOne</h1>
+                    </div>
+                    <ul class="nav-items">
+                        <li class="current-page nav-item text hide-on-med-and-down">Requests</li>
+                        <li class="nav-item text hide-on-med-and-down">Donations</li>
+                        <li class="nav-item text hide-on-med-and-down">About Us</li>
+                        <li class="profile nav-item text hide-on-med-and-down">AQ</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="mycontainer">
+            <div class="row">
+                <div class="col s12 l8 request-body">
+                    <h1 class="request-title text">Help needed after house fire</h1>
+                    <img src="../images/Burnt House.jpg" alt="Image of burnt house" class="request-image text">
+                    <p class="request-details text">On the 14th of february, a faulty electrical socket  
+                        caused my 1 bedroom house to be burnt to the 
+                        ground. As a bus driver at PTSC, my salary is not nearly 
+                        enough to provide all the things my kids and I need to 
+                        start over after losing everything in this fire and so any 
+                        assistance you can provide would be so appreciated.</p>
+                </div>
+                <div class="col s12 l4 request-items">
+                    <div class="border">
+                        <h1 class="items-title text">Items Requested</h1>
+                        <ul class="item-list">
+                            <p class="item text">Clothes for 1 year old boy</p>
+                            <div class="divider line"></div>
+                            <p class="item text">Clothes for size medium woman</p>
+                            <div class="divider"></div>
+                            <p class="item text">Form 3 science books</p>
+                            <div class="divider"></div>
+                            <p class="item text">Mattresses</p>
+                            <div class="divider"></div>
+                            <p class="item text">Food items</p>
+                        </ul>
+                    </div>
+                        <button data-target="form-modal" class="button modal-trigger text">Donate</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div id="form-modal" class="modal">
+                <div class="modal-content">
+                    <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                        <label for="textarea1">Pickup Directions</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                        <label for="textarea1">Optional Note</label>
+                      </div>
+                      <button href="#! " class="button text">Confirm</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Materialize javascript import -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!-- Modal Initialization -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.modal');
+                var instances = M.Modal.init(elems, {});
+            });
+        </script>
+    </body>
+</html>

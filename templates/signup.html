@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>GiveOne</title>
+        <link rel="stylesheet" href="../static/login_signup.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <img src="/images/LoginImage.jpg" alt="Man and son laughing on pavement" class="side-image">
+            <form class="form">
+                <div class="form-contents">
+                    <img src="/images/GiveOneLogo.png" alt="GiveOne Logo" class="logo">
+                    <h1 class="heading">GiveOne</h1>
+                    <h2 class="signup-subheading">Sign Up</h1>
+                    <div class="input-fields">
+                        <p class="signup-prompts">Email</p>
+                        <input type="email" placeholder="john.doe@email.com" class="signup-input">
+                        <p class="signup-prompts">Username</p>
+                        <input type="text" placeholder="john.doe@email.com" class="signup-input">
+                        <p class="signup-prompts">Password</p>
+                        <input type="password" placeholder="********" class="signup-input">
+                        <p class="signup-prompts">Confirm Password</p>
+                        <input type="password" placeholder="********" class="signup-input">
+                        <div  id="remember-forgot-div">
+                            <input type="checkbox" id="remember-me" value="Remember Me">
+                            <label for="remember-me">Remember me</label>
+                            <a id="forgot-password" href="#">Forgot Password</a>
+                        </div>
+                    </div>
+                    <button id="register-button">Sign Up</button>
+                    <div class="or">
+                        <p class="or-text">Or</p>
+                    </div>          
+                    <button id="google-register-button">
+                        <img src="/images/GoogleLogo.svg" class="google-icon">
+                        Sign Up with Google
+                    </button>
+                    <p id="signup-text">Already have an account? 
+                        <a id="signup-link" href="./login.html">Login</a>
+                    </p>
+                </div>
+                </form>
+        </div>
+    </body>
+</html>

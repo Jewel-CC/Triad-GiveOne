@@ -1,0 +1,250 @@
+* {
+    box-sizing: border-box;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background-color: #FFF7D9;
+    font-family: 'Playfair Display', serif;}
+
+.wrapper{
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.side-image{
+    width: 50vw;
+    object-fit: cover;
+}
+
+.form{
+    width: 50vw;
+}
+
+/* Deal with form positioning!!! */
+.form-contents{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    height: 100vh;
+    position: absolute;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.logo{
+    height: 60px;
+    width: 80px;
+    object-fit: fill;
+    margin-top: 25px;
+}
+
+.heading{
+    font-size: 42px;
+    font-weight: 530;
+    color: #696B4D;
+    margin-top: 5px;
+}
+
+.login-subheading{
+    font-size: 35px;
+    font-weight: 500;
+    color: #696B4D;
+    margin-top: 25px;
+}
+
+.input-fields{
+    display: flex;
+    flex-direction: column;
+}
+
+.login-prompts{
+    margin-top: 25px;
+    font-size: 20px;
+    font-weight: normal;
+    color: #696B4D;
+}
+
+/* Style input boxes */
+.login-input {
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #696B4D;
+  border-radius: 8px;
+  outline: none;
+  height: 35px;
+  width: 350px;
+  margin-top: 5px;
+}
+
+.login-input::placeholder{
+    padding-left: 5px;
+    font-size: 14px;
+}
+
+.login-input::placeholder:focus{
+    color: transparent;
+}
+
+#remember-forgot-div{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+input[type='checkbox']{
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 12px;
+    width: 12px;
+    border: 1px solid #696B4D;
+    border-radius: 2px;
+    background-color: #FFF7D9;
+    cursor: pointer;
+}
+
+label{
+    color: #696B4D;
+    font-size: 15px;
+    padding-left: 5px;
+}
+
+#forgot-password{
+    color: #696B4D;
+    margin-left: auto;
+    
+}
+
+#register-button{
+    background-color: #FDB26D;
+    color: #FFF7D9;
+    font-size: 19px;
+    text-align: center;
+    height: 40px;
+    width: 180px;
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+.or{
+    color: #696B4D;
+    margin-top: 15px;
+    width: 170px;
+    position: relative;
+    text-align: center;
+}
+
+.or::before{
+    content: "";
+    display: block;
+    width: 40%;
+    height: 1px;
+    background: #696B4D;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin: auto;
+}
+
+.or::after{
+    content: "";
+    display: block;
+    width: 40%;
+    height: 1px;
+    background: #696B4D;
+    position: absolute;
+    right: 0;
+    top: 50%;
+}
+
+.or-text{
+    color: #696B4D;
+    background: #FFF7D9;
+    font-size: 15px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+#google-register-button{
+    display: inline-flex ;
+    background-color: #696B4D;
+    color: #FFF7D9;
+    font-size: 15px;
+    height: 45px;
+    width: 212px;
+    border-radius: 30px;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
+}
+.google-icon{
+    height: 30px;
+    width: 30px;
+    background-color: #696B4D;
+    padding-right: 10px;
+}
+
+#signup-text{
+    color: #696B4D;
+    font-size: 15px;
+    margin-top: 12px;
+}
+
+#signup-link{
+    color: #FDB26D;
+    font-size: 15px;
+}
+
+
+
+/* SIGN UP  PAGE STYLING */
+.signup-subheading{
+    font-size: 35px;
+    font-weight: 500;
+    color: #696B4D;
+    margin-top: 10px;
+}
+
+.signup-prompts{
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: normal;
+    color: #696B4D;
+}
+
+/* Style input boxes */
+.signup-input {
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #696B4D;
+  border-radius: 8px;
+  outline: none;
+  height: 35px;
+  width: 350px;
+  margin-top: 5px;
+}
+
+.signup-input::placeholder{
+    padding-left: 5px;
+    font-size: 14px;
+}
+
+.signup-input::placeholder:focus{
+    color: transparent;
+}
+
+/* Hide side image when screen small */
+/* @media (max-width: 800px) {
+    .side-image {
+    display: none;
+    }
+} */
