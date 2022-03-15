@@ -4,7 +4,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-     <link rel="stylesheet" type="text/css" href="style.css"> 
+<link rel="stylesheet" type="text/css" href="style.css"> 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="../static/materialize.css"  media="screen,projection"/>
 
 
      <style>
@@ -66,57 +69,63 @@
         <li>  <a href="/">Home</a> </li>
         <li>  <a href="/requests">Requests</a> </li>
         <li>  <a href="/donations">Donation</a> </li>
-        <li>  <a href="/about">About</a> </li> 
+        <li>  <a href="/about-us">About</a> </li> 
         <li>  <a href="/user"> Profile</a> </li>
       </div>
   </ul> 
 </div> 
+
 <div class="about-us-content"> 
 
-   <center> <h1 style="color: #696B4D;"> Our History</h1></center>
+   <center> <h2 style="color: #696B4D;"> Our History</h2></center>
    <div class="flex-container">
       <div style="justify-content: center;"> <center>Background</center> 
-         <p style="font-size: 20px;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales nulla at tellus finibus, sit amet tristique quam vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in ornare nibh. Integer finibus, sem vel luctus accumsan, risus ex finibus nunc, eu tristique felis ipsum id sem.  </p> </div>
+         <p style="font-size: 20px;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales nulla at tellus finibus, sit amet tristique quam vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in ornare nibh. Integer finibus, sem vel luctus accumsan, risus ex finibus nunc, eu tristique felis ipsum id sem.  </p> 
+      </div>
       <div> <center>About Us</center> 
-         <p style="font-size: 20px;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales nulla at tellus finibus, sit amet tristique quam vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in ornare nibh. Integer finibus, sem vel luctus accumsan, risus ex finibus nunc, eu tristique felis ipsum id sem.  </p> </div>
+         <p style="font-size: 20px;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales nulla at tellus finibus, sit amet tristique quam vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in ornare nibh. Integer finibus, sem vel luctus accumsan, risus ex finibus nunc, eu tristique felis ipsum id sem.  </p>
+       </div>
 
       
       
       <div> <center> Mission </center>
-         <p style="font-size: 20px;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales nulla at tellus finibus, sit amet tristique quam vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in ornare nibh. Integer finibus, sem vel luctus accumsan, risus ex finibus nunc, eu tristique felis ipsum id sem.  </p> </div>
+         <p style="font-size: 20px;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales nulla at tellus finibus, sit amet tristique quam vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in ornare nibh. Integer finibus, sem vel luctus accumsan, risus ex finibus nunc, eu tristique felis ipsum id sem.  </p>
       </div>
-    </div
+      </div>
+   </div>
+ 
 
-  </div>
-<footer class="footer" style="margin-top: 500px;"> 
-    <table class="ft-table">
-       <tr>
-          <td colspan="2">
-           <img src="../images/GiveOne Logo Full.png" height="100px" >
+  
+    <footer class="footer" > 
+      <table class="ft-table">
+         <tr>
+            <td colspan="2">
+             <img src="../images/GiveOne Logo Full.png" height="100px" >
+            </td>
+            <td>
+               Receive updates on the latest requests & donations <br>
+               <form class="col s12" style="display: inline;"> 
+                  <div class="row">
+                  <div class="input-field col s4">
+                  <input type="text" id="email" name="email" value="Your Email..."><br> </form>
+                  </div>
+               <input type="submit" value="Subscribe" class="waves-effect waves-light btn">
+                  </div>
           </td>
           <td>
-             Receive updates on the latest requests & donations <br>
-             <form style="display: inline;"> 
-                <input type="text" id="email" name="email" value="Your Email..."><br> </form>
-             <input type="submit" value="Subscribe">
-        </td>
-        <td>
-             Follow Us <br>
-             <a> <img href="#" src="../images/fb-logo.png" height="20"> </a>
-             <a> <img href="#" src="../images/tw-logo.png" height="20"> </a>
-             <a> <img href="#" src="../images/ig-logo.png" height="20"> </a>
-  
-        </td>
-        <td>
-             Call Us <br> (868)643-3674
-        </td>
-       </tr>
-     
-    </table>
-  </footer>
-  
-     
-  </div>
+               Follow Us <br>
+               <a> <img href="#" src="../images/fb-logo.png" height="20"> </a>
+               <a> <img href="#" src="../images/tw-logo.png" height="20"> </a>
+               <a> <img href="#" src="../images/ig-logo.png" height="20"> </a>
+    
+          </td>
+          <td>
+               Call Us <br> (868)643-3674
+          </td>
+         </tr>
+       
+      </table>
+    </footer>
   
   
      </body>
@@ -125,8 +134,7 @@
      
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-  
-  
+    <script type="text/javascript" src="../js/materialize.js"></script>
      
   
   
