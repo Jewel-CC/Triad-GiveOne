@@ -167,3 +167,36 @@ footer {
   color: white;
 }
 
+
+/* About Us Styling */
+.about-us-content{
+  margin-top: 100px;
+  
+    
+}
+
+.about-us-content p1{
+  color:#696B4D; 
+  margin-bottom: -20;
+  justify-content: center;
+ 
+}
+
+.flex-container {
+  display: flex;
+  height: 800px;
+  background-image: url('../images/about-us-background.png');
+  justify-content: center;
+  
+}
+
+.flex-container > div {
+  background-color: #FFFFFF ;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  height: 500px;
+  width: 400px;
+  opacity: 0.5;
+  
+}
