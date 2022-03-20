@@ -16,7 +16,6 @@ db.init_app(app)
 app.app_context().push()
 db.create_all(app=app)
 
-<<<<<<< HEAD
 @app.route('/', methods=['GET'])
 def index():
   form = LogIn()
@@ -66,12 +65,6 @@ def donation_page():
 @app.route('/request_page', methods=['GET'])
 def request_page():
   return render_template('request_page.html') 
-=======
-@app.route("/")
-#@login_required
-def home():
-	return render_template('index.html')
->>>>>>> 129f261058c8c86844b14654986f040fe5972f3e
 
 if __name__ == '__main__':
   app.debug = True
