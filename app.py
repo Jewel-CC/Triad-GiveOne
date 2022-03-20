@@ -7,20 +7,16 @@ from flask_login import LoginManager, current_user, login_user,logout_user,login
 from sqlalchemy.exc import IntegrityError
 
 
-login_manager = LoginManager()
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "SECRET"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
 db.init_app(app)
-login_manager.init_app(app)
-
+# login_manager.init_app(app) 
 app.app_context().push()
 db.create_all(app=app)
 
+<<<<<<< HEAD
 @app.route('/', methods=['GET'])
 def index():
   form = LogIn()
@@ -70,6 +66,12 @@ def donation_page():
 @app.route('/request_page', methods=['GET'])
 def request_page():
   return render_template('request_page.html') 
+=======
+@app.route("/")
+#@login_required
+def home():
+	return render_template('index.html')
+>>>>>>> 129f261058c8c86844b14654986f040fe5972f3e
 
 if __name__ == '__main__':
   app.debug = True
