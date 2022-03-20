@@ -7,22 +7,17 @@ from flask_login import LoginManager, current_user, login_user,logout_user,login
 from sqlalchemy.exc import IntegrityError
 
 
-login_manager = LoginManager()
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "SECRET"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
 db.init_app(app)
-login_manager.init_app(app)
-
+# login_manager.init_app(app) 
 app.app_context().push()
 db.create_all(app=app)
 
 @app.route("/")
-@login_required
+#@login_required
 def home():
 	return render_template('index.html')
 
