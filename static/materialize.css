@@ -5233,6 +5233,7 @@ small {
 .btn-flat {
   font-size: 14px;
   outline: 0;
+  color: white;
 }
 
 .btn i, .btn-large i, .btn-small i,
@@ -5529,9 +5530,10 @@ button.btn-floating {
 }
 
 .btn-small {
-  height: 32.4px;
-  line-height: 32.4px;
-  font-size: 13px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 10px;
+  width: 100px;
 }
 
 .btn-small i {
@@ -5633,17 +5635,18 @@ body.keyboard-focused .dropdown-content li:focus {
 .waves-effect {
   position: relative;
   cursor: pointer;
-  display: inline-block;
+  display: block;
   overflow: hidden;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
   -webkit-tap-highlight-color: transparent;
-  vertical-align: middle;
+  /* vertical-align: middle; */
   z-index: 1;
   -webkit-transition: .3s ease-out;
   transition: .3s ease-out;
+  
 }
 
 .waves-effect .waves-ripple {

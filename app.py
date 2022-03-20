@@ -2,7 +2,7 @@ import json
 from flask import Flask,request,redirect,url_for,flash
 from flask import render_template
 from forms import SignUp,Login,newRequest,newDonation
-from models import db,User,Giver,Getter,Request,Item
+from models import db,User, Item #Giver,Getter,Request
 from flask_login import LoginManager, current_user, login_user,logout_user,login_required
 from sqlalchemy.exc import IntegrityError
 

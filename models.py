@@ -47,60 +47,60 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return '<User {}>'.format(self.email) 
 
-    class Giver(db.Model):
-        id = db.Column(db.Integer,primary_key=True)
-        donation = relationship("Request", backref="Giver")
+class Giver(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    donation = relationship("Request", backref="Giver")
+
+
+    def toDict(self):
+        return{
+            'id':self.id,
+            'donation': self.donation
+        }
+
+class Getter(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    # ver_status = db.Column(db.bool, nullable=False)
+    # requests = db.Column(relationship("Request", backref="Getter"))
+
+
+    def toDict(self):
+        return{
+        'id':self.id,
+        'ver_status': self.ver_status   
+        }
+
+class Request(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    status = db.Column(db.Boolean, nullable=False) #add default value
+    description = db.Column(db.String, nullable=False) 
+    item = relationship("Item", backref="Request")
+    category = db.column(db.String(80))
+    urgent = db.Column(db.Boolean, nullable=False)
+
+    def toDict(self):
+        return{
+        'id':self.id,
+        'title':self.title,
+        'status': self.status,
+        'description': self.description, 
+        'item': self.item,
+        'category': self.category,
+        'urgent':self.urgent   
+        }
+    
+class Item(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    quantity = db.Column(db.Integer) 
     
 
-        def toDict(self):
-            return{
-                'id':self.id,
-                'donation': self.donation
-            }
 
-    class Getter(db.Model):
-        id = db.Column(db.Integer,primary_key=True)
-       # ver_status = db.Column(db.bool, nullable=False)
-       # requests = db.Column(relationship("Request", backref="Getter"))
-
-
-        def toDict(self):
-            return{
-            'id':self.id,
-            'ver_status': self.ver_status   
-            }
-    
-    class Request(db.Model):
-        id = db.Column(db.Integer,primary_key=True)
-        title = db.Column(db.String(120), nullable=False)
-        status = db.Column(db.bool, nullable=False) #add default value
-        description = db.Column(db.String, nullable=False) 
-        item = relationship("Item", backref="Request", nullable=False)
-        category = db.column(db.String(80), nullable=True)
-        urgent = db.Column(db.bool, nullable=False)
-
-        def toDict(self):
-            return{
-            'id':self.id,
-            'title':self.title,
-            'status': self.status,
-            'description': self.description, 
-            'item': self.item,
-            'category': self.category,
-            'urgent':self.urgent   
-            }
-    
-    class Item(db.Model):
-        id = db.Column(db.Integer,primary_key=True)
-        name = db.Column(db.String(80), nullable=False)
-        quantity = db.Column(db.Integer) 
-        
-
-
-        def toDict(self):
-            return{
-            'id':self.id,
-            'name':self.name,
-            'quantity':self.quantity
-            }
+    def toDict(self):
+        return{
+        'id':self.id,
+        'name':self.name,
+        'quantity':self.quantity
+        }
 	
