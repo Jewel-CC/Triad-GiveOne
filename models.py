@@ -76,7 +76,7 @@ class Request(db.Model):
     status = db.Column(db.Boolean, nullable=False) #add default value
     description = db.Column(db.String, nullable=False) 
     item = relationship("Item", backref="Request")
-    category = db.column(db.String(80))
+    category = db.Column(db.String(80))
     urgent = db.Column(db.Boolean, nullable=False)
 
     def toDict(self):
