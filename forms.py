@@ -12,7 +12,7 @@ class SignUp(FlaskForm):
     confirm  = PasswordField('Confirm Password')
     submit = SubmitField('Create Account', render_kw={'class': 'btn black-text red accent-4'})
 
-class Login(FlaskForm):
+class LogIn(FlaskForm):
     username = StringField('Username', validators=[InputRequired()],render_kw={'class': 'white-text'})
     password = PasswordField('Enter Password', validators=[InputRequired()])
     submit = SubmitField('Login', render_kw={'class': 'btn black-text red accent-4'})
