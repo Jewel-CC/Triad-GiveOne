@@ -56,7 +56,11 @@ def signupAction():
 
 @app.route('/all_requests', methods=['GET'])
 def all_requests():
-  return render_template('all_requests.html') 
+  return render_template('all_requests2.html') 
+
+@app.route('/all_donations', methods=['GET'])
+def all_donations():
+  return render_template('all_donations.html') 
 
 @app.route('/donation_page', methods=['GET'])
 def donation_page():
@@ -66,7 +70,7 @@ def donation_page():
 def request_page():
   return render_template('request_page.html') 
 
-#Testing push
+
 
 if __name__ == '__main__':
   app.debug = True
