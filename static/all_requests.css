@@ -29,6 +29,10 @@ body{
     box-shadow: none;
 }
 
+nav ul li a:hover {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
 .logo-div{
     display: flex;
     align-items: center;

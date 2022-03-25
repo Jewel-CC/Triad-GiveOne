@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>GiveOne</title>
-        <link rel="stylesheet" href="../static/login_signup.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/login_signup.css') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com"> 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -11,17 +11,17 @@
     </head>
     <body>
         <div class="wrapper">            
-            <img src="/static/LoginImage.jpg" alt="Man and son laughing on pavement" class="side-image">
-            <form class="form">
+            <img src="{{ url_for('static', filename='/LoginImage.jpg') }}" alt="Man and son laughing on pavement" class="side-image">
+            <form class="form" method="post" action="/login">
                 <div class="form-contents">
-                    <img src="/static/GiveOneLogo.png" alt="GiveOne Logo" class="logo">
+                    <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne Logo" class="logo">
                     <h1 class="heading">GiveOne</h1>
                     <h2 class="login-subheading">Login</h1>
                     <div class="input-fields">
-                        <p class="login-prompts">Email</p>
-                        <input type="email" placeholder="john.doe@email.com" class="login-input">
+                        <p class="login-prompts">Username</p>
+                        <input type="text" placeholder="John Doe" class="login-input" name="username">
                         <p class="login-prompts">Password</p>
-                        <input type="password" placeholder="********" class="login-input">
+                        <input type="password" placeholder="********" class="login-input" name="password">
                         <div  id="remember-forgot-div">
                             <input type="checkbox" id="remember-me" value="Remember Me">
                             <label for="remember-me">Remember me</label>
@@ -33,11 +33,11 @@
                         <p class="or-text">Or</p>
                     </div>          
                     <button id="google-register-button">
-                        <img src="/static/GoogleLogo.svg" class="google-icon">
+                        <img src="{{ url_for('static', filename='/GoogleLogo.svg') }}" class="google-icon">
                         Login with Google
                     </button>
                     <p id="signup-text">Don't have an account? 
-                        <a id="signup-link" href="/signup">Sign Up</a>
+                        <a id="signup-link" href="{{ url_for('signup') }}">Sign Up</a>
                     </p>
                 </div>
                 </form>

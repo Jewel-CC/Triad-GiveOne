@@ -2,44 +2,56 @@
 <html lang="en">
     <head>
         <title>GiveOne</title>
-        <link rel="stylesheet" href="../static/login_signup.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/login_signup.css') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com"> 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     </head>
     <body>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+                <ul class="flashes">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </nav>
+        {% endif %}
+        {% endwith %}
+
         <div class="wrapper">
-            <img src="/static/LoginImage.jpg" alt="Man and son laughing on pavement" class="side-image">
-            <form class="form">
+            <img src="{{ url_for('static', filename='/LoginImage.jpg') }}" alt="Man and son laughing on pavement" class="side-image">
+            <form class="form" method="post" action="/signup">
                 <div class="form-contents">
-                    <img src="/static/GiveOneLogo.png" alt="GiveOne Logo" class="logo">
+                    <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne Logo" class="logo">
                     <h1 class="heading">GiveOne</h1>
                     <h2 class="signup-subheading">Sign Up</h1>
                     <div class="input-fields">
                         <p class="signup-prompts">Email</p>
-                        <input type="email" placeholder="john.doe@email.com" class="signup-input">
+                        <input type="email" placeholder="john.doe@email.com" class="signup-input" name="email">
                         <p class="signup-prompts">Username</p>
-                        <input type="text" placeholder="john.doe@email.com" class="signup-input">
+                        <input type="text" placeholder="John Doe" class="signup-input" name="username">
                         <p class="signup-prompts">Password</p>
-                        <input type="password" placeholder="********" class="signup-input">
+                        <input type="password" placeholder="********" class="signup-input" name="password">
                         <p class="signup-prompts">Confirm Password</p>
-                        <input type="password" placeholder="********" class="signup-input">
+                        <input type="password" placeholder="********" class="signup-input" name="confirm-password">
                         <div  id="remember-forgot-div">
                             <input type="checkbox" id="remember-me" value="Remember Me">
                             <label for="remember-me">Remember me</label>
                             <a id="forgot-password" href="#">Forgot Password</a>
-                        </div>
+                        </div>`
                     </div>
-                    <button id="register-button">Sign Up</button>
+                    <button id="register-button" type="submit">Sign Up</button>
                     <div class="or">
                         <p class="or-text">Or</p>
                     </div>          
                     <button id="google-register-button">
-                        <img src="/static/GoogleLogo.svg" class="google-icon">
+                        <img src="{{ url_for('static', filename='/GoogleLogo.svg') }}" class="google-icon">
                         Sign Up with Google
                     </button>
                     <p id="signup-text">Already have an account? 
-                        <a id="signup-link" href="/">Login</a>
+                        <a id="signup-link" href="{{ url_for('login') }}">Login</a>
                     </p>
                 </div>
                 </form>

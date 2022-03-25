@@ -17,6 +17,12 @@
     object-fit: cover;
 }
 
+/* @media screen  and (min-width: 50vw){
+    .side-image{
+        display: none;
+    }
+} */
+
 .form{
     width: 50vw;
 }
@@ -77,6 +83,9 @@
   height: 35px;
   width: 350px;
   margin-top: 5px;
+  padding-left: 10px;
+  font-size: 14px;
+  color: #696B4D;
 }
 
 .login-input::placeholder{
@@ -128,6 +137,10 @@ label{
     width: 180px;
     border-radius: 30px;
     margin-top: 20px;
+}
+
+#register-button:hover{
+    cursor: pointer;
 }
 
 .or{
@@ -184,6 +197,10 @@ label{
     align-items: center;
     justify-content: center;
 }
+
+#google-register-button:hover{
+    cursor:pointer;
+}
 .google-icon{
     height: 30px;
     width: 30px;
@@ -231,6 +248,9 @@ label{
   height: 35px;
   width: 350px;
   margin-top: 5px;
+  padding-left: 10px;
+  font-size: 14px;
+  color: #696B4D;
 }
 
 .signup-input::placeholder{
