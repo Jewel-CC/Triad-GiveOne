@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template, redirect, flash, url_for, jsonify
 from flask_cors import CORS
-from flask_login import LoginManager, current_user, login_user, login_required
+from flask_login import LoginManager, current_user, login_user, login_required, logout_user
 from sqlalchemy.exc import IntegrityError
 
 from models import db, User, Requests, Donations
@@ -74,6 +74,13 @@ def loginAction():
     flash('Invalid username or password') # send message to next page
   return render_template('login.html')
 
+#LOGOUT FUNCTIONALITY
+@app.route('/logout', methods=['GET'])
+@login_required
+def logout():
+  logout_user()
+  flash('Logged Out!')
+  return redirect(url_for('login')) 
 
 # REQUESTS FUNCTIONALITY
 @app.route('/all_requests', methods=['GET'])
