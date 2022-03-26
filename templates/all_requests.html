@@ -25,7 +25,8 @@
                         <li> <a class="current-page nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
                         <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
                         <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
-                        <li class="profile nav-item text hide-on-med-and-down" href="/account">{{ current_user.username }}</li>
+                        <li class="profile nav-item text hide-on-med-and-down">{{ current_user.username }}</li>
+                        <li><a class="nav-item text hide-on-med-and-down" href="/profile">Profile</a></li>
                         <li><a class="nav-item text hide-on-med-and-down" href="/logout">Logout</a></li>
                     </ul>
                 </nav>
