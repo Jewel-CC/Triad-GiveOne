@@ -100,6 +100,10 @@ def all_donations():
 def about_us():
   return render_template('about_us.html') 
 
+@app.route('/account', methods=['GET'])
+@login_required
+def account():
+  return render_template('account.html') 
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8080, debug=True)
