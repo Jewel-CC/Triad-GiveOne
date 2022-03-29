@@ -6,6 +6,7 @@ from pytest import Item
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
+from uploads import store_file, remove_file
 
 
 db = SQLAlchemy()
