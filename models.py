@@ -89,6 +89,19 @@ class Donations(db.Model):
             "userid" : self.userid
         }
 
+class Upload(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String, nullable=False)
+
+    def __init__(self, file):
+      self.filename = store_file(file)
+
+    def remove_file(self):
+      remove_file(self.filename)
+
+    def get_url(self):
+      return f'/uploads/{self.filename}'
+
         
 # from ctypes import addressof
 # import datetime
