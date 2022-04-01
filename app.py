@@ -66,6 +66,14 @@ def donation_page():
 def request_page():
   return render_template('request_page.html') 
 
+@app.route('/home', methods=['GET'])
+def home():
+  return render_template('homepage.html')
+
+@app.route('/about', methods=['GET'])
+def about_us():
+  return render_template('about_us.html')
+
 if __name__ == '__main__':
   app.debug = True
   app.run()
