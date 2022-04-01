@@ -22,8 +22,8 @@
                         <h1 class="title text">GiveOne</h1>
                     </div>
                     <ul class="nav-items">
-                        <li> <a class="current-page nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
-                        <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
+                        <li> <a class="nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
+                        <li> <a class="current-page nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
                         <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
                         <li class="profile nav-item text hide-on-med-and-down">{{ current_user.username }}</li>
                         <li><a class="nav-item text hide-on-med-and-down" href="/profile">Profile</a></li>
@@ -35,45 +35,45 @@
 
         <div class="mycontainer">
             <div class="row">
-                <h3 class="page-title text">All Requests</h3>
+                <h3 class="page-title text">All Donations</h3>
             </div>
             <div class="row">
                 <!-- Duplicate cards from here -->
-                <a href="/request_page">
+                <a href="/donation_page">
                     <div class="col s12 m6 l4" >
                         <div class="card hoverable medium">
                           <div class="card-image">
-                            <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
+                            <img src="{{ url_for('static', filename='/hamper.jpeg') }}">
                           </div>
                           <div class="card-content">
-                            <span class="card-title text">Help Needed After House Fire</span>
-                            <p class="card-text text">On the 14th of february, a faulty electrical socket... </p>
+                            <span class="card-title text">Hampers of Grocery Items</span>
+                            <!-- <p class="card-text text">Happy Easter! In the spirit of the season I'd... </p> -->
                             <div class="card-creator">
-                                <a class="profile-link text">Lindsay Abraham</a>
+                                <a class="profile-link text">John Doe</a>
                             </div>
                           </div>
                           
                         </div>
                     </div>
                 </a>     
+            </div>
+        </div>
 
-        <!-- Make Request Button -->
-        <button data-target="form-modal" class="button modal-trigger text">Make a Request</button>
+        <!-- Make Donation Button -->
+        <button data-target="form-modal" class="button modal-trigger text">Make a Donation</button>
 
         <div class="container">
             <div id="form-modal" class="modal">
                 <div class="modal-content">
-                    <div class="form" method="post" action="create_request">
-                        <div class="input-field col s12">
-                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                            <label for="textarea1">Pickup Directions</label>
-                        </div>
-                          <div class="input-field col s12">
-                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                            <label for="textarea1">Optional Note</label>
-                        </div>
-                        <button href="#! " class="button text">Confirm</button>
-                    </div>
+                    <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                        <label for="textarea1">Pickup Directions</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                        <label for="textarea1">Optional Note</label>
+                      </div>
+                      <button href="#! " class="button text">Confirm</button>
                 </div>
             </div>
         </div>

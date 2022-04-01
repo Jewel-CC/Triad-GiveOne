@@ -33,51 +33,51 @@
             </div>
         </div>
 
-        <div class="mycontainer">
-            <div class="row">
-                <h3 class="page-title text">All Requests</h3>
-            </div>
-            <div class="row">
-                <!-- Duplicate cards from here -->
-                <a href="/request_page">
-                    <div class="col s12 m6 l4" >
-                        <div class="card hoverable medium">
-                          <div class="card-image">
-                            <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
-                          </div>
-                          <div class="card-content">
-                            <span class="card-title text">Help Needed After House Fire</span>
-                            <p class="card-text text">On the 14th of february, a faulty electrical socket... </p>
-                            <div class="card-creator">
-                                <a class="profile-link text">Lindsay Abraham</a>
-                            </div>
-                          </div>
-                          
-                        </div>
-                    </div>
-                </a>     
-
-        <!-- Make Request Button -->
-        <button data-target="form-modal" class="button modal-trigger text">Make a Request</button>
-
-        <div class="container">
-            <div id="form-modal" class="modal">
-                <div class="modal-content">
-                    <div class="form" method="post" action="create_request">
-                        <div class="input-field col s12">
-                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                            <label for="textarea1">Pickup Directions</label>
-                        </div>
-                          <div class="input-field col s12">
-                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                            <label for="textarea1">Optional Note</label>
-                        </div>
-                        <button href="#! " class="button text">Confirm</button>
-                    </div>
-                </div>
-            </div>
+        <div class="content-section">
+                <h3 class="account-heading"> Username: {{ current_user.username }}</h3>
+                <h3 class="text-secondary">Email: {{ current_user.email }}</h3>
         </div>
 
+        <div class="row">
+          <h1>Upload new File</h1>
+            <form action="/upload" method='POST' enctype="multipart/form-data">
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>File</span>
+                  <input name="file" accept="image/*" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+                <button class="btn waves-effect waves-light" type="submit">Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </form>
+        </div>
+        <div class="row">
+          <table>
+            <thead>
+              <tr>
+                <th>Id</th><th>Name</th><th>Image</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              {% for upload in uploads %}
+                <tr>
+                    <td>{{upload.id}}</td>
+                    <td>{{upload.filename}}</td>
+                    <td>
+                      <img class="materialboxed" width="500px" src="{{upload.get_url()}}">
+                    </td>
+                    <td><a class="waves-effect waves-light btn" href="/deleteUpload/{{upload.id}}">DELETE</a></td>
+                </tr>
+              {% endfor %}
+            <tbody>
+          </table>
+        </div>
+        
         <!-- Materialize javascript import -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <!-- Modal Initialization -->

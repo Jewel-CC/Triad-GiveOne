@@ -60,22 +60,24 @@
 
       </style>
    </head>
-<div class="nav"> 
 <body>
-   <ul>
-      <li> <a href="#!" class="logo"> <img src="../images/GiveOne Logo Trans.png" height="40px" >   </a></li>
-      <li> <p style="font-size:large"> GiveOne </p></li>
-      <div class="right">
-        <li>  <a href="/">Home</a> </li>
-        <li>  <a href="/requests">Requests</a> </li>
-        <li>  <a href="/donations">Donation</a> </li>
-        <li>  <a href="/about-us">About</a> </li> 
-        <li>  <a href="/user"> Profile</a> </li>
-      </div>
-  </ul> 
-</div> 
+   <div class="row">
+      <nav class="col s12 nav-bar">
+          <div class="logo-div">
+              <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
+              <h1 class="title text">GiveOne</h1>
+          </div>
+          <ul class="nav-items">
+              <li> <a class="current-page nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
+              <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
+              <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
+              <li class="profile nav-item text hide-on-med-and-down">{{ current_user.username }}</li>
+              <li><a class="nav-item text hide-on-med-and-down" href="/logout">Logout</a></li>
+          </ul>
+      </nav>
+  </div>
 
-<div class="about-us-content"> 
+   <div class="about-us-content"> 
 
    <center> <h2 style="color: #696B4D;"> Our History</h2></center>
    <div class="flex-container">
