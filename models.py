@@ -6,6 +6,7 @@ from pytest import Item
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
+from uploads import store_file, remove_file
 
 
 db = SQLAlchemy()
@@ -96,13 +97,20 @@ class Donations(db.Model):
             "userid" : self.userid
         }
 
-# class DonationItems(db.Model):
-#   itemid = db.Column(db.Integer, primary_key=True)
-#   itemName = db.Column(db.String(100), nullable=False)
-#   donid = db.Column(db.Integer, db.ForeignKey('donations.donid'), nullable=False)
+class Upload(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String, nullable=False)
 
+    def __init__(self, file):
+      self.filename = store_file(file)
 
+    def remove_file(self):
+      remove_file(self.filename)
 
+    def get_url(self):
+      return f'/uploads/{self.filename}'
+
+        
 # from ctypes import addressof
 # import datetime
 

@@ -1,9 +1,14 @@
-from flask import Flask, request, jsonify, render_template, redirect, flash, url_for, jsonify
+from flask import Flask, request, jsonify, render_template, redirect, flash, url_for, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_login import LoginManager, current_user, login_user, login_required, logout_user
 from sqlalchemy.exc import IntegrityError
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import  FileStorage
+from datetime import timedelta
+from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
+import os
 
-from models import db, User, Requests, Donations
+from models import db, User, Requests, Donations, Upload
 
 ''' Begin Flask Login Functions '''
 login_manager = LoginManager()
@@ -20,9 +25,14 @@ def create_app():
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
   app.config['SECRET_KEY'] = "MYSECRET"
   CORS(app)
+  app.config['PREFERRED_URL_SCHEME'] = 'https'
+  app.config['UPLOADED_PHOTOS_DEST'] = "uploads"
+  app.config['UPLOAD_FOLDER'] = "uploads"
+  photos = UploadSet('photos', TEXT + DOCUMENTS + IMAGES)
   login_manager.init_app(app) # uncomment if using flask login
   db.init_app(app)
   db.create_all(app=app)
+  configure_uploads(app, photos)
   return app
 
 app = create_app()
@@ -74,6 +84,13 @@ def loginAction():
     flash('Invalid username or password') # send message to next page
   return render_template('login.html')
 
+#LOGOUT FUNCTIONALITY
+@app.route('/logout', methods=['GET'])
+@login_required
+def logout():
+  logout_user()
+  flash('Logged Out!')
+  return redirect(url_for('login')) 
 
 # ALL REQUESTS FUNCTIONALITY
 @app.route('/all_requests', methods=['GET'])
@@ -152,6 +169,53 @@ def logout():
   logout_user()
   flash('Logged Out!')
   return redirect(url_for('login')) 
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/uploads/<path:name>', methods=["GET"])
+def download_file(name):
+  return send_from_directory('uploads', name)
+
+@app.route('/profile', methods=['GET'])
+def uploader():
+  uploads = Upload.query.all()
+  return render_template('profile.html', uploads=uploads)
+
+@app.route('/upload', methods=['POST'])
+def upload_action():
+  if 'file' not in request.files:
+    flash('No file in request')
+    return redirect('/uploader')
+  file = request.files['file']
+  newupload = Upload(file)
+  db.session.add(newupload)
+  db.session.commit()
+  flash('file uploaded!')
+  return redirect('/profile')
+
+@app.route('/deleteUpload/<int:id>', methods=['GET'])
+def delete_file(id):
+  upload = Upload.query.get(id)
+  if upload:
+    upload.remove_file()
+    db.session.delete(upload)
+    db.session.commit()
+    flash('Upload Deleted')
+  return redirect('/profile')  
+
+
+
+@app.route('/home', methods=['GET'])
+def home():
+  return render_template('homepage.html')
+
+@app.route('/about', methods=['GET'])
+def about_us():
+  return render_template('about_us.html')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8080, debug=True)
