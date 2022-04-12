@@ -1,145 +1,83 @@
-<!DOCTYPE html> 
-<html>
-<head>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="style.css"> 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!--Import materialize.css-->
-<link type="text/css" rel="stylesheet" href="../static/materialize.css"  media="screen,projection"/>
-
-
-     <style>
-      
-      
-     .nav ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>GiveOne</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='/all_requests.css') }}">
+        <!-- Materialize css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Get fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">  
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
         
-        position: fixed;
-        top: 0;
-        width: 100%;
-      }
-      
-      .nav li {
-        float: left;
-        color: #696B4D;
-      }
-      
-      .nav li a {
-        display: block;
-        color: #696B4D;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-      }
-      
-      .nav li a:hover:not(.active) {
-        background-color:burlywood;
-      }
-      
-      footer{
-         
-         margin-top: 500px;
-      }
-       
-      
-      
-      .footer {
-         position: absolute;
-         bottom: 0;
-         width: 100%;
-         /* Set the fixed height of the footer here */
-         height: 100px;
-       }
-       
-      
+    </head>
 
-      </style>
-   </head>
-<body>
-   <div class="row">
-      <nav class="col s12 nav-bar">
-          <div class="logo-div">
-              <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
-              <h1 class="title text">GiveOne</h1>
-          </div>
-          <ul class="nav-items">
-              <li> <a class="current-page nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
-              <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
-              <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
-              <li class="profile nav-item text hide-on-med-and-down">{{ current_user.username }}</li>
-              <li><a class="nav-item text hide-on-med-and-down" href="/logout">Logout</a></li>
-          </ul>
-      </nav>
-  </div>
 
-   <div class="about-us-content"> 
+    <body>
+        <div class="mycontainer">
+            <div class="row">
+                <nav class="col s12 nav-bar">
+                    <div class="logo-div">
+                        <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
+                        <h1 class="title text">GiveOne</h1>
+                    </div>
+                    <ul class="nav-items">
+                        <li> <a class="current-page nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
+                        <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
+                        <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
+                        <li class="profile nav-item text hide-on-med-and-down">{{ current_user.username }}</li>
+                        <li><a class="nav-item text hide-on-med-and-down" href="/profile">Profile</a></li>
+                        <li><a class="nav-item text hide-on-med-and-down" href="/logout">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
 
-   <center> <h2 style="color: #696B4D;"> Our History</h2></center>
-   <div class="flex-container">
-      <div style="justify-content: center;"> <center>Background</center> 
-         <p style="font-size: 20px;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales nulla at tellus finibus, sit amet tristique quam vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in ornare nibh. Integer finibus, sem vel luctus accumsan, risus ex finibus nunc, eu tristique felis ipsum id sem.  </p> 
+        <div class = "container">
+
+         <div class="row">
+            
+            <div class="col s4">
+               <div class="card-panel blue-grey lighten-5">
+                  <div class="card-title">Card Title</div>
+                  <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+                     I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+                  </span>
+               </div>
+            </div>
+
+            <div class="col s4">
+               <div class="card-panel blue-grey lighten-5">
+                  <div class="card-title">Card Title</div>
+                  <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+                     I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+                  </span>
+               </div>
+            </div>
+            
+            <div class="col s4">
+               <div class="card-panel blue-grey lighten-5">
+                  <div class="card-title">Card Title</div>
+                  <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+                     I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+                  </span>
+               </div>
+            </div>
+
+         </div>
+
       </div>
-      <div> <center>About Us</center> 
-         <p style="font-size: 20px;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales nulla at tellus finibus, sit amet tristique quam vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in ornare nibh. Integer finibus, sem vel luctus accumsan, risus ex finibus nunc, eu tristique felis ipsum id sem.  </p>
-       </div>
-
-      
-      
-      <div> <center> Mission </center>
-         <p style="font-size: 20px;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales nulla at tellus finibus, sit amet tristique quam vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in ornare nibh. Integer finibus, sem vel luctus accumsan, risus ex finibus nunc, eu tristique felis ipsum id sem.  </p>
-      </div>
-      </div>
-   </div>
- 
-
-  
-    <footer class="footer" > 
-      <table class="ft-table">
-         <tr>
-            <td colspan="2">
-             <img src="../images/GiveOne Logo Full.png" height="100px" >
-            </td>
-            <td>
-               Receive updates on the latest requests & donations <br>
-               <form > 
-                <div  class="frm-sub">
                   
-                  <input type="text" id="email" name="email" value="Your Email..." style="width: 200px;">
-               
-                  
-               <input type="submit" value="Subscribe" class="waves-effect waves-light btn-small" > 
-                  </div>
-               </form>
-          </td>
-          <td>
-               Follow Us <br>
-               <a> <img href="#" src="../images/fb-logo.png" height="20"> </a>
-               <a> <img href="#" src="../images/tw-logo.png" height="20"> </a>
-               <a> <img href="#" src="../images/ig-logo.png" height="20"> </a>
-    
-          </td>
-          <td>
-               Call Us <br> (868)643-3674
-          </td>
-         </tr>
-       
-      </table>
-    </footer>
-  
-  
-     </body>
-  
-     
-     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../js/materialize.js"></script>
-     
-  
-  
-  </html>
+
+        <!-- Materialize javascript import -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!-- Modal Initialization -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.modal');
+                var instances = M.Modal.init(elems, {});
+            });
+        </script>
+    </body>
+</html>
