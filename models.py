@@ -56,7 +56,8 @@ class Requests(db.Model):
     reqid = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(180), nullable=False)    
     body = db.Column(db.String(1000), nullable=False)
-    items = db.Column(db.String(1000), nullable=False)
+    # req_items = db.relationship('RequestItems', backref='requests', lazy=True, cascade="all, delete-orphan")     #get all requested items
+    req_items = db.Column(db.String(2000), nullable=False)
     userid = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def toDict(self):
@@ -68,12 +69,18 @@ class Requests(db.Model):
             "userid" : self.userid
         }
 
+# class RequestItems(db.Model):
+#   itemid = db.Column(db.Integer, primary_key=True)
+#   item_name = db.Column(db.String(100), nullable=False)
+#   reqid = db.Column(db.Integer, db.ForeignKey('requests.reqid'), nullable=False)
+
 
 class Donations(db.Model):
     donid = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(180), nullable=False)    
     body = db.Column(db.String(1000), nullable=False)
-    items = db.Column(db.String(1000), nullable=False)
+    # don_items = db.relationship('DonationItems', backref='donations', lazy=True, cascade="all, delete-orphan")     #get all requests by user
+    don_items = db.Column(db.String(2000), nullable=False)
     directions = db.Column(db.String(1000), nullable=False)
     note = db.Column(db.String(1000), nullable=False)
     userid  = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -89,7 +96,13 @@ class Donations(db.Model):
             "userid" : self.userid
         }
 
-        
+# class DonationItems(db.Model):
+#   itemid = db.Column(db.Integer, primary_key=True)
+#   itemName = db.Column(db.String(100), nullable=False)
+#   donid = db.Column(db.Integer, db.ForeignKey('donations.donid'), nullable=False)
+
+
+
 # from ctypes import addressof
 # import datetime
 

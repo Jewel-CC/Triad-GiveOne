@@ -26,6 +26,10 @@
     box-shadow: none;
 }
 
+nav ul li a:hover {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
 .logo-div{
     display: flex;
     align-items: center;
@@ -96,6 +100,7 @@
 .border{
     border: 0.8px #696B4D solid;
     border-radius: 20px;
+    padding: 10px 10px 5px 10px;
 }
 
 .items-title{

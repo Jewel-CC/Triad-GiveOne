@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>GiveOne</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='/profile.css') }}">
+        <!-- <link rel="stylesheet" href="/static/profile.css"> -->
+        <!-- Materialize css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Get fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">  
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="mycontainer">
+            <div class="row">
+                <nav class="col s12 nav-bar">
+                    <div class="logo-div">
+                        <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
+                        <h1 class="title text">GiveOne</h1>
+                    </div>
+                    <ul class="nav-items">
+                        <li> <a class="nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
+                        <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
+                        <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
+                        <li> <a class="current-page profile nav-item text hide-on-med-and-down" href="{{ url_for('profile') }}">{{ current_user.username }}</a> </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="mycontainer ">
+            <div class="update-profile row">
+                <div class="input-fields col s12 l6">
+                    <h2 class="text">Profile Information</h2>
+                    <p class="input-prompts text">Username</p>
+                    <input type="text " placeholder="{{current_user.username}}" class="profile-input disabled" name="username">
+                    <p class="input-prompts text">Email</p>
+                    <input type="email " placeholder="{{current_user.email}}" class="profile-input disabled" name="email">
+                    <p class="input-prompts">Old Password</p>
+                    <input type="password " placeholder="********" class="profile-input disabled" name="password">
+                    <p class="input-prompts">New Password</p>
+                    <input type="password " placeholder="********" class="profile-input disabled" name="new-password">
+                    <button type="submit" id="profile-button">Submit</button>
+                </div>
+
+                <!-- <div class = "vertical"></div> -->
+
+                <div class="uploaded-docs col s12 l6">
+                    <h2 class="text">Uploaded documents</h2>
+                    <button type="file" id="document-button">
+                        <i class="material-icons">file_upload</i>   
+                        Upload                     
+                    </button>
+                </div>
+            </div>
+
+            <div class="request-activity ">
+                <h2 class="text">Request Activity</h2>
+                <div class="row">
+                    <div class="activity-cards center-align">
+                        <div class="col s10">
+                            <div class="card horizontal hoverable">
+                            <div class="card-image">
+                                <img class="card_image" src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <p class="card-title text">Help Needed After House Fire</p>
+                                    <h5 class="text">Pickup Directions</h5>
+                                    <p class="text">Meet at this place</p>
+                                    <h5 class="text">Optional Note</h5>
+                                    <p class="text">I got this for you</p>
+                                </div>
+                                <div class="card-action">
+                                    <!-- <a href="#">This is  link</a> -->
+                                    <!-- <a href="#">This is a link</a> -->
+                                    <button type="submit" class="deny-button">Cancel</button>
+                                    <button type="submit" class="confirm-button">Accept</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="request-activity ">
+                <h2 class="text">Donation Activity</h2>
+                <div class="row">
+                    <div class="activity-cards center-align">
+                        <div class="col s10">
+                            <div class="card horizontal hoverable">
+                            <div class="card-image">
+                                <img class="card_image" src="{{ url_for('static', filename='/hamper.jpeg') }}">
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <p class="card-title text">Easter grocery hampers</p>
+                                    <h5 class="text">Optional Note</h5>
+                                    <p class="text">I got this for you</p>
+                                </div>
+                                <div class="card-action">
+                                    <!-- <a href="#">This is  link</a> -->
+                                    <!-- <a href="#">This is a link</a> -->
+                                    <button type="submit" class="deny-button">Cancel</button>
+                                    <button type="submit" class="confirm-button">Accept</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

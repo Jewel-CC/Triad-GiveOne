@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>GiveOne</title>
-        <link rel="stylesheet" href="../static/request_page.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/request_page.css') }}">
         <!-- Materialize css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
         <!-- Get fonts -->
@@ -16,14 +16,14 @@
             <div class="row">
                 <nav class="col s12 nav-bar">
                     <div class="logo-div">
-                        <img src="/static/GiveOneLogo.png" alt="GiveOne logo" class="logo">
+                        <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
                         <h1 class="title text">GiveOne</h1>
                     </div>
                     <ul class="nav-items">
-                        <li class="nav-item text hide-on-med-and-down">Requests</li>
-                        <li class="current-page nav-item text hide-on-med-and-down">Donations</li>
-                        <li class="nav-item text hide-on-med-and-down">About Us</li>
-                        <li class="profile nav-item text hide-on-med-and-down">AQ</li>
+                        <li> <a class="nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
+                        <li> <a class="current-page nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
+                        <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
+                        <li> <a class="profile nav-item text hide-on-med-and-down" href="{{ url_for('profile') }}">{{ current_user.username }}</a> </li>
                     </ul>
                 </nav>
             </div>
@@ -32,45 +32,18 @@
         <div class="mycontainer">
             <div class="row">
                 <div class="col s12 l8 request-body">
-                    <h1 class="request-title text">Hampers of grocery items</h1>
-                    <img src="../static/hamper.jpeg" alt="Image of hampers with grocery items" class="request-image">
-                    <p class="request-details text">Happy Easter! In the spirit of the season I'd like to donate hampers filled with grocery 
-                        items to bring joy to any families struggling during this time. There are 10 hampers availaable and will be given out on
-                        a first come first served basis so be sure to collect as soon as possible. I hope you enjoy!</p>
+                    <h1 class="request-title text">{{donation.title}}</h1>
+                    <img src="{{ url_for('static', filename='/hamper.jpeg') }}" alt="Image of hampers with grocery items" class="request-image">
+                    <p class="request-details text">{{donation.body}}</p>
                 </div>
                 <div class="col s12 l4 request-items">
                     <div class="border">
                         <h1 class="items-title text">Items Donated</h1>
                         <ul class="item-list">
-                            <p class="item text">Large pack of dairy dairy milk</p>
-                            <div class="divider line"></div>
-                            <p class="item text">Pack of rice</p>
-                            <div class="divider"></div>
-                            <p class="item text">5 cans of Brunswick tuna</p>
-                            <div class="divider"></div>
-                            <p class="item text">Sack of flour</p>
-                            <div class="divider"></div>
-                            <p class="item text">2 packs of sugar</p>
-                            <div class="divider"></div>
-                            <p class="item text">2 cans of pigeon peas</p>
-                            <div class="divider"></div>
-                            <p class="item text">2 cans of corned beef</p>
-                            <div class="divider"></div>
-                            <p class="item text">1 tin of crix</p>
-                            <div class="divider"></div>
-                            <p class="item text">2 packs of macaroni</p>
-                            <div class="divider"></div>
-                            <p class="item text">2 packs of sppaghetti</p>
-                            <div class="divider"></div>
-                            <p class="item text">1 holiday snacks funpack</p>
-                            <div class="divider"></div>
-                            <p class="item text">Cadbury chocolate bunnies</p>
-                            <div class="divider"></div>
-                            <p class="item text">Hotcrossed buns from massy</p>
-                            <div class="divider"></div>
-                            <p class="item text">1 box of honey bunches of oats cereal</p>
-                            <div class="divider"></div>
-                            <p class="item text">1 tin of Milo</p>
+                            {% for item in donation.don_items %}
+                                <p class="item text">{{item}}</p>
+                                <div class="divider line"></div>
+                            {% endfor %}
                         </ul>
                     </div>
                         <button data-target="form-modal" class="button modal-trigger text">Request</button>
@@ -82,9 +55,9 @@
             <div id="form-modal" class="modal">
                 <div class="modal-content">
                     <h3 class="text">Pickup Directions</h1>
-                    <p class="text">Pickup at the Goodwill in Port of Spain from the 3rd of March</p>
+                    <p class="text">{{donation.directions}}</p>
                     <h3 class="text">Note</h1>
-                    <p class="text">Happy Easter, hope all is well with you and yours!</p>
+                    <p class="text">{{donation.note}}</p>
                       <button href="#! " class="button text">Confirm</button>
                 </div>
             </div>

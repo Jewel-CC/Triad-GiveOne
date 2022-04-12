@@ -1,0 +1,256 @@
+* {
+    box-sizing: border-box;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    /* background-color: #FFF7D9; */
+    font-family: 'Playfair Display', serif;
+}
+
+body{
+    background-color: #FFF7D9;
+}
+
+.text{
+    color: #696B4D;
+}
+
+.mycontainer{
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+/* NAVBAR */
+.nav-bar{
+    margin-top: 10px;
+    width: 100vw;
+    background-color: #FFF7D9;
+    display: flex;
+    flex-direction: row;
+    box-shadow: none;
+}
+
+nav ul li a:hover {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.logo-div{
+    display: flex;
+    align-items: center;
+    /* margin-left: 50px; */
+}
+
+.logo-div:hover{
+    cursor: pointer
+}
+
+.logo{
+    height: 50px;
+    width: 70px;
+    object-fit: fill;
+}
+
+.title{
+    padding: 0;
+    margin: 0;
+    font-size: 35px;
+    font-weight: 400;
+}
+
+.nav-items{
+    margin-left: auto;
+    /* margin-right: 50px; */
+}
+
+.nav-item{
+    margin-left: 35px;
+    font-size: 16px;
+    font-weight: 50;
+    transition: font-size 0.2s;
+}
+
+.nav-item:hover{
+    font-size: 17px;   
+    cursor: pointer;
+}
+
+.current-page{
+    color: #FDB26D;
+    font-weight: 100;
+    text-decoration: underline;
+}
+
+/* PROFILE SECTION */
+.update-profile{
+    border: 1px solid #696B4D;
+    border-radius: 30px;
+    padding: 15px;
+    display: flex;
+}
+
+.input-fields{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.uploaded-docs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} 
+
+
+/* Style input boxes */
+
+.input-prompts{
+    margin-top: 25px;
+    font-size: 20px;
+    font-weight: normal;
+    color: #696B4D;
+}
+
+.profile-input {
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #696B4D;
+  border-radius: 8px;
+  outline: none;
+  height: 35px;
+  width: 350px;
+  margin-top: 5px;
+  padding-left: 10px;
+  font-size: 14px;
+  background-color: #FFF7D9;
+  color: #696B4D;
+}
+
+.profile-input::placeholder{
+    padding-left: 5px;
+    font-size: 14px;
+}
+
+.profile-input::placeholder:focus{
+    color: transparent;
+}
+
+#profile-button{
+    background-color: #FDB26D;
+    color: #FFF7D9;
+    font-size: 19px;
+    text-align: center;
+    height: 40px;
+    width: 180px;
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+#profile-button:hover{
+    cursor: pointer;
+}
+
+.vertical{
+    border-left: 1px solid #696B4D;
+    height: 100%;
+    position:absolute;
+    left: 50%;
+}
+
+#document-button{
+    background-color: #696B4D;
+    color: #FFF7D9;
+    font-size: 19px;
+    text-align: center;
+    height: 40px;
+    width: 180px;
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+#document-button:hover{
+    cursor: pointer;
+}
+/* ACTIVITY SECTION */
+
+.request-activity{
+    margin-top: 60px;
+    border: 1px solid #696B4D;
+    border-radius: 30px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* .activity-card{
+    display:flex;
+    flex-direction: row;
+    border: 1px solid #696B4D;
+    height: 100px;
+}
+
+.card-image{
+    width: 50%;
+}
+
+.card-info{
+    width: 50%;
+
+} */
+.activity-cards{
+    /*display: flex;
+    flex-direction: column;
+    align-items: center; */
+    margin: auto;
+}
+
+.card{
+    border-radius: 35px 0px 35px 0px !important;
+    background-color: #fffbef !important;
+}
+
+.card:hover{
+    cursor: pointer;
+}
+
+.card_image{
+    border-radius: 35px 0px 0px 0px !important;
+}
+
+.deny-button{
+    height: 45px;
+    width: 95px;
+    background-color: #696B4D;
+    color: #FDB26D ;
+    border-radius: 25px;
+    margin: 5px;
+    transition: height width color 0.2s;
+}
+
+
+.deny-button:hover{
+    cursor: pointer;
+    height: 47px;
+    width: 97px;
+    color: #FFF7D9;
+}
+
+.confirm-button{
+    height: 45px;
+    width: 95px;
+    background-color: #FDB26D;
+    color: #696B4D;
+    border-radius: 25px;
+    margin: 5px;
+    transition: height width color 0.2s;
+}
+
+
+.confirm-button:hover{
+    cursor: pointer;
+    height: 47px;
+    width: 97px;
+    color: #FFF7D9;
+}
+

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>GiveOne</title>
-        <link rel="stylesheet" href="../static/request_page.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/request_page.css') }}">
         <!-- Materialize css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
         <!-- Get fonts -->
@@ -16,14 +16,14 @@
             <div class="row">
                 <nav class="col s12 nav-bar">
                     <div class="logo-div">
-                        <img src="/static/GiveOneLogo.png" alt="GiveOne logo" class="logo">
+                        <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
                         <h1 class="title text">GiveOne</h1>
                     </div>
                     <ul class="nav-items">
-                        <li class="current-page nav-item text hide-on-med-and-down" href="/all_requests2">Requests</li>
-                        <li class="nav-item text hide-on-med-and-down">Donations</li>
-                        <li class="nav-item text hide-on-med-and-down">About Us</li>
-                        <li class="profile nav-item text hide-on-med-and-down">AQ</li>
+                        <li> <a class="current-page nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
+                        <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
+                        <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
+                        <li> <a class="profile nav-item text hide-on-med-and-down" href="{{ url_for('profile') }}">{{ current_user.username }}</a> </li>
                     </ul>
                 </nav>
             </div>
@@ -32,28 +32,18 @@
         <div class="mycontainer">
             <div class="row">
                 <div class="col s12 l8 request-body">
-                    <h1 class="request-title text">Help needed after house fire</h1>
-                    <img src="../static/Burnt House.jpg" alt="Image of burnt house" class="request-image text">
-                    <p class="request-details text">On the 14th of february, a faulty electrical socket  
-                        caused my 1 bedroom house to be burnt to the 
-                        ground. As a bus driver at PTSC, my salary is not nearly 
-                        enough to provide all the things my kids and I need to 
-                        start over after losing everything in this fire and so any 
-                        assistance you can provide would be so appreciated.</p>
+                    <h1 class="request-title text">{{request.title}}</h1>
+                    <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}" alt="Image of burnt house" class="request-image text">
+                    <p class="request-details text">{{request.body}}</p>
                 </div>
                 <div class="col s12 l4 request-items">
                     <div class="border">
                         <h1 class="items-title text">Items Requested</h1>
                         <ul class="item-list">
-                            <p class="item text">Clothes for 1 year old boy</p>
-                            <div class="divider line"></div>
-                            <p class="item text">Clothes for size medium woman</p>
-                            <div class="divider"></div>
-                            <p class="item text">Form 3 science books</p>
-                            <div class="divider"></div>
-                            <p class="item text">Mattresses</p>
-                            <div class="divider"></div>
-                            <p class="item text">Food items</p>
+                            {% for item in request.req_items %}
+                                <p class="item text">{{item}}</p>
+                                <div class="divider line"></div>
+                            {% endfor %}
                         </ul>
                     </div>
                         <button data-target="form-modal" class="button modal-trigger text">Donate</button>

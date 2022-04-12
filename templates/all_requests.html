@@ -6,6 +6,8 @@
         <!-- Materialize css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Materialize Icons -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Get fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">  
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
@@ -25,7 +27,7 @@
                         <li> <a class="current-page nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
                         <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
                         <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
-                        <li class="profile nav-item text hide-on-med-and-down">{{ current_user.username }}</li>
+                        <li> <a class="profile nav-item text hide-on-med-and-down" href="{{ url_for('profile') }}">{{ current_user.username }}</a> </li>
                     </ul>
                 </nav>
             </div>
@@ -37,7 +39,7 @@
             </div>
             <div class="row">
                 <!-- Duplicate cards from here -->
-                <a href="/request_page">
+                <!-- <a href="/request_page/{{request.reqid}}">
                     <div class="col s12 m6 l4" >
                         <div class="card hoverable medium">
                           <div class="card-image">
@@ -53,7 +55,29 @@
                           
                         </div>
                     </div>
-                </a>     
+                </a>  -->
+                
+                {% if requests %}
+                    {% for request in requests %}
+                    <a href="/request_page/{{request.reqid}}">
+                        <div class="col s12 m6 l4" >
+                            <div class="card hoverable medium">
+                            <div class="card-image">
+                                <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title text">{{ request.title }}</span>
+                                <p class="card-text text">{{ request.body }} </p>
+                                <div class="card-creator">
+                                    <a class="profile-link text">Lindsay Abraham</a>
+                                </div>
+                            </div>
+                            
+                            </div>
+                        </div>
+                    </a> 
+                    {% endfor %}
+                {%  endif %}
 
         <!-- Make Request Button -->
         <button data-target="form-modal" class="button modal-trigger text">Make a Request</button>
@@ -61,17 +85,34 @@
         <div class="container">
             <div id="form-modal" class="modal">
                 <div class="modal-content">
-                    <div class="form" method="post" action="create_request">
+                    <h2 class="text">Make a Request</h2>
+                    
+                    <form class="form" method="post" action="/create_request">
+                        <div class="input-field col s6">
+                            <input id="title" type="text" class="validate" name="title">
+                            <label for="title">Request Title</label>
+                          </div>
                         <div class="input-field col s12">
-                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                            <label for="textarea1">Pickup Directions</label>
+                            <textarea placeholder="Give some information about your request" id="body" class="materialize-textarea" name="body"></textarea>
+                            <label for="body" class="text">Request Body</label>
                         </div>
-                          <div class="input-field col s12">
-                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                            <label for="textarea1">Optional Note</label>
+                        <div class="input-field col s12">
+                            <textarea placeholder="Add requested items (separate items with commas)" id="items" class="materialize-textarea" name="req_items"></textarea>
+                            <label for="items" class="text">Request Items</label>
                         </div>
-                        <button href="#! " class="button text">Confirm</button>
-                    </div>
+                        <div class="file-field input-field col s12">
+                            <div class="btn">
+                              <span>File</span>
+                              <input type="file" name="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                              <input class="file-path validate" type="text"/>
+                            </div>
+                        </div>
+                        <div class="col s12 confirm-btn">
+                            <input type="submit" value="Confirm" class="button text">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
