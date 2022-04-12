@@ -10,57 +10,68 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">  
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-        
+
+        <style>
+               body{
+                  background-image:url("{{ url_for('static', filename='/about-us-background.png') }}");
+                  }
+      </style>
+
     </head>
 
-
     <body>
-        <div class="mycontainer">
-            <div class="row">
-                <nav class="col s12 nav-bar">
-                    <div class="logo-div">
-                        <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
-                        <h1 class="title text">GiveOne</h1>
-                    </div>
-                    <ul class="nav-items">
-                        <li> <a class="current-page nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
-                        <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
-                        <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
-                        <li class="profile nav-item text hide-on-med-and-down">{{ current_user.username }}</li>
-                        <li><a class="nav-item text hide-on-med-and-down" href="/profile">Profile</a></li>
-                        <li><a class="nav-item text hide-on-med-and-down" href="/logout">Logout</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+
+      <nav class = "yellow lighten-5">
+         <div class="nav-wrapper">
+            <a class="lime-text text-darken-4 brand-logo">
+               <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
+               Give One
+            </a>
+           <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li> <a class="grey-text text-darken-3" href="{{ url_for('all_requests') }}">Requests</a> </li>
+            <li> <a class="grey-text text-darken-3" href="{{ url_for('all_donations') }}">Donations</a> </li>
+            <li> <a class="grey-text text-darken-3" href="{{ url_for('about_us') }}">About Us</a> </li>
+            <li class="grey-text text-darken-3"> {{ current_user.username }}</li>
+            <li><a class="grey-text text-darken-3" href="/profile">Profile</a></li>
+            <li><a class="grey-text text-darken-3" href="/logout">Logout</a></li>
+           </ul>
+         </div>
+       </nav>
+
 
         <div class = "container">
 
          <div class="row">
+
+            <h1 style="text-align: center;">
+               <span class=" lime-text text-darken-4">
+               Our History
+               </span>
+            </h1>
             
             <div class="col s4">
-               <div class="card-panel blue-grey lighten-5">
-                  <div class="card-title">Card Title</div>
-                  <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-                     I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+               <div class="card small card-panel yellow lighten-5">
+                  <div class="card-title lime-text text-darken-4" style="text-align:center">Background</div>
+                  <span class="lime-text text-darken-4">
+                     There are many people all over the world who need sometimes need help, they aren't in abject poverty, but they're struggling to make ends meet, such as a
+                     single mothers who barely hold their household together. 
                   </span>
                </div>
             </div>
 
             <div class="col s4">
-               <div class="card-panel blue-grey lighten-5">
-                  <div class="card-title">Card Title</div>
-                  <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-                     I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+               <div class="card small card-panel yellow lighten-5">
+                  <div class="card-title lime-text text-darken-4" style="text-align:center">Story</div>
+                  <span class="lime-text text-darken-4">Team member Jewel and her sister regularly donate to charity and some of the people they meet don't need extreme help,
+                     just a little to get through a particularly tough month, or week. 
                   </span>
                </div>
             </div>
             
             <div class="col s4">
-               <div class="card-panel blue-grey lighten-5">
-                  <div class="card-title">Card Title</div>
-                  <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-                     I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+               <div class="card small card-panel yellow lighten-5">
+                  <div class="card-title lime-text text-darken-4" style="text-align:center">Mission</div>
+                  <span class="lime-text text-darken-4"> To help those that need a small blessing to keep them going through a particularly tough time.
                   </span>
                </div>
             </div>
@@ -68,6 +79,65 @@
          </div>
 
       </div>
+
+      <footer class="page-footer orange lighten-3" style="position:fixed;bottom:0;left:0;width:100%;">
+         <div class="container">
+           <div class="row">
+
+             <div class="col s12 m6 l3">
+               <div class="logo-div">
+                  <img src="{{ url_for('static', filename='/GiveOne Logo Full.png') }}" alt="GiveOne logo" class="logo">
+              </div>
+             </div>
+
+             <div class="col s12 m6 l3">
+               <h6 class="white-text">Receive the latest updates </h6>
+               <form action="#">
+                  <div class="row">
+                     <div class="col s6">
+                        <div class="input-field inline">
+                          <input id="email_inline" type="email" class="validate">
+                          <label for="email_inline">Email</label>
+                        </div>
+                      </div>
+                     <div class ="col s6">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Subscribe</button>
+                     </div>
+                   </div>
+                </form>
+             </div>
+
+             <div class="col s12 m6 l3">
+               <h6 class="white-text">Follow Us</h6>
+               <div class="row">
+                  <div class="col s4">
+                     <a href="instagram.com/">
+                        <img src="{{ url_for('static', filename='/fb-logo.png') }}" alt="FB logo" class="logo">
+                        </a>
+                  </div>
+
+                  <div class="col s4">
+                     <a href="instagram.com/">
+                     <img src="{{ url_for('static', filename='/ig-logo.png') }}" alt="IG logo" class="logo">
+                     </a>
+                  </div>
+                  <div class="col s4">
+                     <a href="twitter.com/">
+                     <img src="{{ url_for('static', filename='/tw-logo.png') }}" alt="TW logo" class="logo">
+                     </a>
+                  </div>
+                </div>
+             </div>
+
+             <div class="col s12 m6 l3">
+               <h6 class="white-text">Call us</h6>
+               <ul>
+                 <li><a class="grey-text text-lighten-3" href="#!">(868) 643-5674</a></li>
+               </ul>
+             </div>
+           </div>
+         </div>
+       </footer>
                   
 
         <!-- Materialize javascript import -->
