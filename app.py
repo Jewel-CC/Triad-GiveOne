@@ -157,18 +157,9 @@ def donation_page(id):
 def about_us():
   return render_template('about_us.html') 
 
-@app.route('/profile', methods=['GET'])
-@login_required
-def profile():
-  return render_template('profile.html')
-
-# LOGOUT USER
-@app.route('/logout', methods=['GET'])
-@login_required
-def logout():
-  logout_user()
-  flash('Logged Out!')
-  return redirect(url_for('login')) 
+@app.route('/home', methods=['GET'])
+def home():
+  return render_template('homepage.html')
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
@@ -181,7 +172,7 @@ def download_file(name):
   return send_from_directory('uploads', name)
 
 @app.route('/profile', methods=['GET'])
-def uploader():
+def profile():
   uploads = Upload.query.all()
   return render_template('profile.html', uploads=uploads)
 
@@ -189,7 +180,7 @@ def uploader():
 def upload_action():
   if 'file' not in request.files:
     flash('No file in request')
-    return redirect('/uploader')
+    return redirect('/profile')
   file = request.files['file']
   newupload = Upload(file)
   db.session.add(newupload)
@@ -207,15 +198,6 @@ def delete_file(id):
     flash('Upload Deleted')
   return redirect('/profile')  
 
-
-
-@app.route('/home', methods=['GET'])
-def home():
-  return render_template('homepage.html')
-
-@app.route('/about', methods=['GET'])
-def about_us():
-  return render_template('about_us.html')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8080, debug=True)
