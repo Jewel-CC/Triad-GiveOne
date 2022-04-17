@@ -49,11 +49,44 @@
                 <!-- <div class = "vertical"></div> -->
 
                 <div class="uploaded-docs col s12 l6">
-                    <h2 class="text">Uploaded documents</h2>
-                    <button type="file" id="document-button">
-                        <i class="material-icons">file_upload</i>   
-                        Upload                     
-                    </button>
+                    <div class="row">
+                        <h2 class="text">Uploaded documents</h2>
+                          <form action="/upload" method='POST' enctype="multipart/form-data">
+                            <div class="file-field input-field">
+                              <div class="btn lime darken-4">
+                                <span>File</span>
+                                <input name="file" accept="image/*" type="file">
+                              </div>
+                              <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                              </div>
+                              <button class="btn waves-effect waves-light lime darken-4" type="submit">Upload
+                                <i class="material-icons">file_upload</i>
+                              </button>
+                            </div>
+                          </form>
+                      </div>
+                      <div class="row">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Document ID:</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                            {% for upload in uploads %}
+                              <tr>
+                                  <td>{{upload.id}}</td>
+                                  <td>
+                                    <img class="materialboxed" width="500px" src="{{upload.get_url()}}">
+                                  </td>
+                                  <td><a class="waves-effect waves-light btn lime darken-4" href="/deleteUpload/{{upload.id}}">DELETE</a></td>
+                              </tr>
+                            {% endfor %}
+                          <tbody>
+                        </table>
+                      </div>
                 </div>
             </div>
 
@@ -115,6 +148,15 @@
             </div>
 
         </div>
-
+        <!-- Materialize javascript import -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!-- Modal Initialization -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.modal');
+                var instances = M.Modal.init(elems, {});
+            });
+        </script>
+    </body>
     </body>
 </html>
