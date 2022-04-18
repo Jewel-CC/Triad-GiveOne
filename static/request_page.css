@@ -33,6 +33,7 @@ nav ul li a:hover {
 .logo-div{
     display: flex;
     align-items: center;
+    text-decoration: none;
     /* margin-left: 50px; */
 }
 
@@ -97,6 +98,11 @@ nav ul li a:hover {
     margin-top: 5px;
 }
 
+.profile-link{
+    font-size: 22px;
+    color: #FDB26D;
+    text-decoration: underline;
+}
 .border{
     border: 0.8px #696B4D solid;
     border-radius: 20px;

@@ -60,7 +60,7 @@ def signupAction():
     db.session.commit() # save user
     login_user(newuser) # login the user
     flash('Account Created!')# send message
-    return redirect(url_for('all_requests'))# redirect to homepage
+    return redirect(url_for('homepage'))# redirect to homepage
   except IntegrityError: # attempted to insert a duplicate user
     db.session.rollback()
     flash("username or email already exists") # error message
@@ -79,26 +79,31 @@ def loginAction():
   if user and user.check_password(data['password']): # check credentials
     flash('Logged in successfully.') # send message to next page
     login_user(user) # login the user
-    return redirect(url_for('all_requests')) # redirect to main page if login successful
+    return redirect(url_for('homepage')) # redirect to main page if login successful
   else:
     flash('Invalid username or password') # send message to next page
   return render_template('login.html')
 
 #LOGOUT FUNCTIONALITY
-@app.route('/logout', methods=['GET'])
+@app.route('/logout', methods= ['GET'])
 @login_required
 def logout():
   logout_user()
   flash('Logged Out!')
   return redirect(url_for('login')) 
 
+# HOMEPAGE
+@app.route('/homepage', methods=['GET'])
+def homepage():
+  top_requests = Requests.query.limit(3).all()
+  top_donations =  Donations.query.limit(3).all()
+  return render_template('homepage.html', requests=top_requests,donations=top_donations)
+
 # ALL REQUESTS FUNCTIONALITY
 @app.route('/all_requests', methods=['GET'])
 @login_required
 def all_requests():
   requests = Requests.query.all()
-  for request in requests:
-    request.body = request.body[0:50]
   return render_template('all_requests.html', requests=requests) 
 
 @app.route('/create_request', methods=['POST'])
@@ -111,8 +116,7 @@ def create_request():
   flash('Request Created!')# send message
   return redirect(url_for('all_requests'))# redirect to homepage
   
-
-
+  
 # REQUEST PAGE
 @app.route('/request_page/<int:id>', methods=['GET'])
 @login_required
@@ -123,13 +127,27 @@ def request_page(id):
   return render_template('request_page.html', request=request)
 
 
+# DONATE TO A REQUEST
+@app.route('/donate/<int:id>', methods=['POST'])
+@login_required
+def donate(id):
+  data = request.form  #get form data 
+  req = Requests.query.filter_by(reqid=id).first()
+  req.donated = True  #request has been donated to
+  req.directions = data['directions']   #add input directions and note
+  req.note =  data['note']
+  req.donator_username = current_user.username  #get username and email of user who made donation
+  req.donator_email = current_user.email
+  db.session.add(req)
+  db.session.commit()
+  return redirect(url_for('all_requests'))
+
+
 # ALL DONATIONS FUNCTIONALITY
 @app.route('/all_donations', methods=['GET'])
 @login_required
 def all_donations():
   donations = Donations.query.all()
-  for donation in donations:
-    donation.body = donation.body[0:50]
   return render_template('all_donations.html', donations=donations) 
 
 @app.route('/create_donation', methods=['POST'])
@@ -152,70 +170,125 @@ def donation_page(id):
     donation.don_items = donation.don_items.split(',')     #turn string into list of items
   return render_template('donation_page.html', donation=donation)
 
+# REQUEST A DONATION
+@app.route('/request/<int:id>', methods=['POST'])
+@login_required
+def make_request(id):
+  data = request.form  #get form data 
+  don = Donations.query.filter_by(donid=id).first()
+  don.requested = True  #donation has been requested
+  don.requestor_username = current_user.username  #get username and email of user who made donation
+  don.requestor_email = current_user.email
+  db.session.add(don)
+  db.session.commit()
+  return redirect(url_for('all_donations'))
+
+
+# ABOUT US
 @app.route('/about_us', methods=['GET'])
 @login_required
 def about_us():
   return render_template('about_us.html') 
 
+# PROFILE 
 @app.route('/profile', methods=['GET'])
 @login_required
 def profile():
-  return render_template('profile.html')
+  requests = Requests.query.filter_by(userid = current_user.id).all()
+  donations = Donations.query.filter_by(userid = current_user.id).all()
+  return render_template('profile.html', requests=requests, donations=donations)
 
-# LOGOUT USER
-@app.route('/logout', methods=['GET'])
+# ACCEPT/CANCEL DONATION
+@app.route('/accept_cancel_donation/<int:id>', methods=['POST'])
 @login_required
-def logout():
-  logout_user()
-  flash('Logged Out!')
-  return redirect(url_for('login')) 
-
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@app.route('/uploads/<path:name>', methods=["GET"])
-def download_file(name):
-  return send_from_directory('uploads', name)
-
-@app.route('/profile', methods=['GET'])
-def uploader():
-  uploads = Upload.query.all()
-  return render_template('profile.html', uploads=uploads)
-
-@app.route('/upload', methods=['POST'])
-def upload_action():
-  if 'file' not in request.files:
-    flash('No file in request')
-    return redirect('/uploader')
-  file = request.files['file']
-  newupload = Upload(file)
-  db.session.add(newupload)
-  db.session.commit()
-  flash('file uploaded!')
-  return redirect('/profile')
-
-@app.route('/deleteUpload/<int:id>', methods=['GET'])
-def delete_file(id):
-  upload = Upload.query.get(id)
-  if upload:
-    upload.remove_file()
-    db.session.delete(upload)
+def accept_cancel_donation(id):
+  req = Requests.query.filter_by(reqid=id).first()
+  if request.form['button'] == 'Accept':     #if accepted, get request and delete it from db
+    db.session.delete(req)
     db.session.commit()
-    flash('Upload Deleted')
-  return redirect('/profile')  
+  else:   # otherwise, remove donator info from request
+    req.donated = False  
+    req.directions = ""
+    req.note =  ""
+    req.donator_username = ""  
+    req.donator_email = ""
+    db.session.add(req)
+    db.session.commit()
+
+  return redirect(url_for('profile'))
+
+# ACCEPT/CANCEL REQUEST
+@app.route('/accept_cancel_request/<int:id>', methods=['POST'])
+@login_required
+def accept_cancel_request(id):
+  don = Donations.query.filter_by(donid=id).first()
+  if request.form['button'] == 'Accept':     #if accepted, get request and delete it from db
+    db.session.delete(don)
+    db.session.commit()
+  else:   # otherwise, remove donator info from request
+    don.requested = False  
+    don.requestor_username = ""  
+    don.requestor_email = ""
+    db.session.add(don)
+    db.session.commit()
+
+  return redirect(url_for('profile'))
 
 
+# # LOGOUT USER
+# @app.route('/logout', methods=['GET'])
+# @login_required
+# def logout():
+#   logout_user()
+#   flash('Logged Out!')
+#   return redirect(url_for('login')) 
 
-@app.route('/home', methods=['GET'])
-def home():
-  return render_template('homepage.html')
+# # UPLOADING FILES  FUNCTIONALITY
 
-@app.route('/about', methods=['GET'])
-def about_us():
-  return render_template('about_us.html')
+# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+# def allowed_file(filename):
+#     return '.' in filename and \
+#            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+# @app.route('/uploads/<path:name>', methods=["GET"])
+# def download_file(name):
+#   return send_from_directory('uploads', name)
+
+# @app.route('/profile', methods=['GET'])
+# def uploader():
+#   uploads = Upload.query.all()
+#   return render_template('profile.html', uploads=uploads)
+
+# @app.route('/upload', methods=['POST'])
+# def upload_action():
+#   if 'file' not in request.files:
+#     flash('No file in request')
+#     return redirect('/uploader')
+#   file = request.files['file']
+#   newupload = Upload(file)
+#   db.session.add(newupload)
+#   db.session.commit()
+#   flash('file uploaded!')
+#   return redirect('/profile')
+
+# @app.route('/deleteUpload/<int:id>', methods=['GET'])
+# def delete_file(id):
+#   upload = Upload.query.get(id)
+#   if upload:
+#     upload.remove_file()
+#     db.session.delete(upload)
+#     db.session.commit()
+#     flash('Upload Deleted')
+#   return redirect('/profile')  
+
+# @app.route('/home', methods=['GET'])
+# def home():
+#   return render_template('homepage.html')
+
+# @app.route('/about', methods=['GET'])
+# def about_us():
+#   return render_template('about_us.html')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8080, debug=True)

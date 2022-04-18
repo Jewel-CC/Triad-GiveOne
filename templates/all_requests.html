@@ -19,10 +19,10 @@
         <div class="mycontainer">
             <div class="row">
                 <nav class="col s12 nav-bar">
-                    <div class="logo-div">
+                    <a class="logo-div" href="{{ url_for('homepage') }}">
                         <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
                         <h1 class="title text">GiveOne</h1>
-                    </div>
+                     </a>
                     <ul class="nav-items">
                         <li> <a class="current-page nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
                         <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
@@ -38,46 +38,26 @@
                 <h3 class="page-title text">All Requests</h3>
             </div>
             <div class="row">
-                <!-- Duplicate cards from here -->
-                <!-- <a href="/request_page/{{request.reqid}}">
-                    <div class="col s12 m6 l4" >
-                        <div class="card hoverable medium">
-                          <div class="card-image">
-                            <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
-                          </div>
-                          <div class="card-content">
-                            <span class="card-title text">Help Needed After House Fire</span>
-                            <p class="card-text text">On the 14th of february, a faulty electrical socket... </p>
-                            <div class="card-creator">
-                                <a class="profile-link text">Lindsay Abraham</a>
-                            </div>
-                          </div>
-                          
-                        </div>
-                    </div>
-                </a>  -->
-                
-                {% if requests %}
-                    {% for request in requests %}
-                    <a href="/request_page/{{request.reqid}}">
-                        <div class="col s12 m6 l4" >
-                            <div class="card hoverable medium">
-                            <div class="card-image">
-                                <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title text">{{ request.title }}</span>
-                                <p class="card-text text">{{ request.body }} </p>
-                                <div class="card-creator">
-                                    <a class="profile-link text">Lindsay Abraham</a>
+                {% for request in requests %}
+                    {% if request.donated == False %}
+                        <a href="/request_page/{{request.reqid}}">
+                            <div class="col s12 m6 l4" >
+                                <div class="card hoverable medium">
+                                    <div class="card-image">
+                                        <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
+                                    </div>
+                                    <div class="card-content">
+                                        <span class="card-title text">{{ request.title }}</span>
+                                        <p class="card-text text truncate">{{ request.body }} </p>
+                                        <div class="card-creator">
+                                            <a class="profile-link text">{{request.user.username}}</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            
-                            </div>
-                        </div>
-                    </a> 
-                    {% endfor %}
-                {%  endif %}
+                        </a> 
+                    {% endif %}
+                {% endfor %}
 
         <!-- Make Request Button -->
         <button data-target="form-modal" class="button modal-trigger text">Make a Request</button>

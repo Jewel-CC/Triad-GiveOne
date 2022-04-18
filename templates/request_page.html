@@ -3,6 +3,7 @@
     <head>
         <title>GiveOne</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='/request_page.css') }}">
+        <!-- <link rel="stylesheet" href="/static/request_page.css"> -->
         <!-- Materialize css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
         <!-- Get fonts -->
@@ -15,10 +16,10 @@
         <div class="mycontainer">
             <div class="row">
                 <nav class="col s12 nav-bar">
-                    <div class="logo-div">
+                    <a class="logo-div" href="{{ url_for('homepage') }}">
                         <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
                         <h1 class="title text">GiveOne</h1>
-                    </div>
+                    </a>
                     <ul class="nav-items">
                         <li> <a class="current-page nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
                         <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
@@ -35,6 +36,7 @@
                     <h1 class="request-title text">{{request.title}}</h1>
                     <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}" alt="Image of burnt house" class="request-image text">
                     <p class="request-details text">{{request.body}}</p>
+                    <p class="profile-link text">Username: {{ request.user.username }}</p>
                 </div>
                 <div class="col s12 l4 request-items">
                     <div class="border">
@@ -54,15 +56,17 @@
         <div class="container">
             <div id="form-modal" class="modal">
                 <div class="modal-content">
-                    <div class="input-field col s12">
-                        <textarea id="textarea1" class="materialize-textarea"></textarea>
-                        <label for="textarea1">Pickup Directions</label>
-                      </div>
-                      <div class="input-field col s12">
-                        <textarea id="textarea1" class="materialize-textarea"></textarea>
-                        <label for="textarea1">Optional Note</label>
-                      </div>
-                      <button href="#! " class="button text">Confirm</button>
+                    <form class="input-field row"  method="post" action="/donate/{{ request.reqid }}"> 
+                        <div class="input-field col s12">
+                            <textarea id="textarea1" class="materialize-textarea" name="directions"></textarea>
+                            <label for="textarea1">Pickup Directions</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="textarea1" class="materialize-textarea" name="note"></textarea>
+                            <label for="textarea1">Optional Note</label>
+                        </div>
+                        <button class="button text">Confirm</button>
+                    </form>
                 </div>
             </div>
         </div>

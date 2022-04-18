@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>GiveOne</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='/all_requests.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/about-us.css') }}">
         <!-- Materialize css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -21,7 +21,26 @@
 
     <body>
 
-      <nav class = "yellow lighten-5">
+      <div class="mycontainer">
+         <div class="row">
+             <nav class="col s12 nav-bar">
+                  <a class="logo-div" href="{{ url_for('homepage') }}">
+                     <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
+                     <h1 class="title text">GiveOne</h1>
+                  </a>
+                 <ul class="nav-items">
+                     <li> <a class="nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
+                     <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
+                     <li> <a class="current-page  nav-item text hide-on-med-and-down" href="{{ url_for('about_us') }}">About Us</a> </li>
+                     <li> <a class="profile nav-item text hide-on-med-and-down" href="{{ url_for('profile') }}">{{ current_user.username }}</a> </li>
+                 </ul>
+             </nav>
+         </div>
+     </div>
+
+
+
+      <!-- <nav class = "yellow lighten-5">
          <div class="nav-wrapper">
             <a class="lime-text text-darken-4 brand-logo">
                <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
@@ -36,10 +55,10 @@
             <li><a class="grey-text text-darken-3" href="/logout">Logout</a></li>
            </ul>
          </div>
-       </nav>
+       </nav> -->
 
 
-        <div class = "container">
+        <div class = "mycontainer">
 
          <div class="row">
 

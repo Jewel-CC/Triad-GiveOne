@@ -17,10 +17,10 @@
         <div class="mycontainer">
             <div class="row">
                 <nav class="col s12 nav-bar">
-                    <div class="logo-div">
+                    <a class="logo-div" href="{{ url_for('homepage') }}">
                         <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
                         <h1 class="title text">GiveOne</h1>
-                    </div>
+                    </a>
                     <ul class="nav-items">
                         <li> <a class="nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
                         <li> <a class="nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
@@ -57,63 +57,97 @@
                 </div>
             </div>
 
-            <div class="request-activity ">
+            <div class="request-activity center-align">
                 <h2 class="text">Request Activity</h2>
                 <div class="row">
-                    <div class="activity-cards center-align">
-                        <div class="col s10">
-                            <div class="card horizontal hoverable">
-                            <div class="card-image">
-                                <img class="card_image" src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <p class="card-title text">Help Needed After House Fire</p>
-                                    <h5 class="text">Pickup Directions</h5>
-                                    <p class="text">Meet at this place</p>
-                                    <h5 class="text">Optional Note</h5>
-                                    <p class="text">I got this for you</p>
-                                </div>
-                                <div class="card-action">
-                                    <!-- <a href="#">This is  link</a> -->
-                                    <!-- <a href="#">This is a link</a> -->
-                                    <button type="submit" class="deny-button">Cancel</button>
-                                    <button type="submit" class="confirm-button">Accept</button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <!-- Duplicate cards here -->
+                    {% if requests %}
+                        {% for request in requests %}
+                            <div class="activity-cards center-align  col s12">
+                                <div class="card horizontal hoverable row">
+                                    <div class="card-image col s12 m6">
+                                        <img class="card_image" src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
+                                    </div>
+                                    <div class="card-stacked col s12 m6">
+                                        <div class="card-content">
+                                            <a class="title text" href="/request_page/{{request.reqid}}">{{request.title}}</a>
 
-            <div class="request-activity ">
-                <h2 class="text">Donation Activity</h2>
-                <div class="row">
-                    <div class="activity-cards center-align">
-                        <div class="col s10">
-                            <div class="card horizontal hoverable">
-                            <div class="card-image">
-                                <img class="card_image" src="{{ url_for('static', filename='/hamper.jpeg') }}">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <p class="card-title text">Easter grocery hampers</p>
-                                    <h5 class="text">Optional Note</h5>
-                                    <p class="text">I got this for you</p>
+                                            {% if request.donated %}
+                                                <h5 class="text">Pickup Directions</h5>
+                                                <p class="text">{{ request.directions }}</p>
+                                                <h5 class="text">Note</h5>
+                                                <p class="text">{{ request.note }}</p>
+                                                <h5 class="text">Donated By</h5>
+                                                <p class="text">Username: {{ request.donator_username }}</p>
+                                                <p class="text">Email: {{ request.donator_email }}</p>
+                                            {% else %}
+                                                <h5 class="text">No Donations Yet</h5>
+                                            {% endif %}
+                                        </div>
+                                        {% if request.donated %}
+                                            <form class="card-action" method="post" action="/accept_cancel_donation/{{request.reqid}}">
+                                                <input type="submit" class="deny-button" name="button" value="Cancel"></input>
+                                                <input type="submit" class="confirm-button" name="button" value="Accept"></input>
+                                            </form>
+                                        {% endif %}
+
+                                    </div>
                                 </div>
-                                <div class="card-action">
-                                    <!-- <a href="#">This is  link</a> -->
-                                    <!-- <a href="#">This is a link</a> -->
-                                    <button type="submit" class="deny-button">Cancel</button>
-                                    <button type="submit" class="confirm-button">Accept</button>
-                                </div>
                             </div>
-                            </div>
-                        </div>
-                    </div>
+                        {% endfor %}
+                    {%  endif %}
+
                 </div>
             </div>
 
+            <div class="donation-activity center-align">
+                <h2 class="text">Donation Activity</h2>
+                <div class="row">
+
+                    <!-- Duplicate cards here -->
+                    {% if donations %}
+                        {% for donation in donations %}
+                            <div class="activity-cards center-align  col s12">
+                                <div class="card horizontal hoverable row">
+                                    <div class="card-image col s12 m6">
+                                        <img class="card_image" src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
+                                    </div>
+                                    <div class="card-stacked col s12 m6">
+                                        <div class="card-content">
+                                            <a class="title text" href="/donation_page/{{donation.donid}}">{{donation.title}}</a>
+
+                                            {% if donation.requested %}
+                                                <h5 class="text">Pickup Directions</h5>
+                                                <p class="text">{{ donation.directions }}</p>
+                                                <h5 class="text">Note</h5>
+                                                <p class="text">{{ donations.note }}</p>
+                                                <h5 class="text">Requested By</h5>
+                                                <p class="text">Username: {{ donation.requestor_username }}</p>
+                                                <p class="text">Email: {{ donation.requestor_email }}</p>
+                                            {% else %}
+                                                <h5 class="text">No Requests Yet</h5>
+                                            {% endif %}
+                                        </div>
+                                        {% if donation.requested %}
+                                            <form class="card-action" method="post" action="/accept_cancel_request/{{donation.donid}}">
+                                                <input type="submit" class="deny-button" name="button" value="Cancel"></input>
+                                                <input type="submit" class="confirm-button" name="button" value="Accept"></input>
+                                            </form>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {%  endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <form class="button-form" method="get"  action="/logout">
+                <button class="logout-button" type="submit">Logout</button>
+            </form>
+            
         </div>
 
     </body>

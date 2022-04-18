@@ -15,10 +15,10 @@
         <div class="mycontainer">
             <div class="row">
                 <nav class="col s12 nav-bar">
-                    <div class="logo-div">
+                    <a class="logo-div" href="{{ url_for('homepage') }}">
                         <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
                         <h1 class="title text">GiveOne</h1>
-                    </div>
+                     </a>
                     <ul class="nav-items">
                         <li> <a class="nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
                         <li> <a class="current-page nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
@@ -35,6 +35,7 @@
                     <h1 class="request-title text">{{donation.title}}</h1>
                     <img src="{{ url_for('static', filename='/hamper.jpeg') }}" alt="Image of hampers with grocery items" class="request-image">
                     <p class="request-details text">{{donation.body}}</p>
+                    <p class="profile-link text">Username: {{ donation.user.username }}</p>
                 </div>
                 <div class="col s12 l4 request-items">
                     <div class="border">
@@ -54,11 +55,13 @@
         <div class="container">
             <div id="form-modal" class="modal">
                 <div class="modal-content">
-                    <h3 class="text">Pickup Directions</h1>
-                    <p class="text">{{donation.directions}}</p>
-                    <h3 class="text">Note</h1>
-                    <p class="text">{{donation.note}}</p>
-                      <button href="#! " class="button text">Confirm</button>
+                    <form method="post" action="/request/{{ donation.donid }}"> 
+                        <h3 class="text">Pickup Directions</h3>
+                        <p class="text">{{donation.directions}}</p>
+                        <h3 class="text">Note</h3>
+                        <p class="text">{{donation.note}}</p>
+                        <button class="button text">Confirm</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -37,6 +37,7 @@ nav ul li a:hover {
 .logo-div{
     display: flex;
     align-items: center;
+    text-decoration: none;
     /* margin-left: 50px; */
 }
 
@@ -183,6 +184,15 @@ nav ul li a:hover {
     flex-direction: column;
 }
 
+.donation-activity{
+    margin-top: 60px;
+    border: 1px solid #696B4D;
+    border-radius: 30px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
 /* .activity-card{
     display:flex;
     flex-direction: row;
@@ -206,7 +216,7 @@ nav ul li a:hover {
 }
 
 .card{
-    border-radius: 35px 0px 35px 0px !important;
+    border-radius: 35px !important;
     background-color: #fffbef !important;
 }
 
@@ -216,6 +226,11 @@ nav ul li a:hover {
 
 .card_image{
     border-radius: 35px 0px 0px 0px !important;
+}
+
+.title{
+    font-size: 32px !important;
+    text-decoration: underline;
 }
 
 .deny-button{
@@ -254,3 +269,31 @@ nav ul li a:hover {
     color: #FFF7D9;
 }
 
+/* LOGOUT BUTTON */
+.button-form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.logout-button{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: gray;
+    color: #FFF7D9;
+    font-size: 22px;
+    text-align: center;
+    height: 50px;
+    width: 170px;
+    border-radius: 30px;
+    margin-top: 20px;
+    transition: background-color height width 0.2s;
+}
+
+.logout-button:hover{
+    cursor: pointer;
+    background-color: rgb(255, 45, 45);
+    height: 42px;
+    width: 142px;
+}

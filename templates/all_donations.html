@@ -17,10 +17,10 @@
         <div class="mycontainer">
             <div class="row">
                 <nav class="col s12 nav-bar">
-                    <div class="logo-div">
+                    <a class="logo-div" href="{{ url_for('homepage') }}">
                         <img src="{{ url_for('static', filename='/GiveOneLogo.png') }}" alt="GiveOne logo" class="logo">
                         <h1 class="title text">GiveOne</h1>
-                    </div>
+                     </a>
                     <ul class="nav-items">
                         <li> <a class="nav-item text hide-on-med-and-down browser-default" href="{{ url_for('all_requests') }}">Requests</a> </li>
                         <li> <a class="current-page nav-item text hide-on-med-and-down" href="{{ url_for('all_donations') }}">Donations</a> </li>
@@ -36,27 +36,8 @@
                 <h3 class="page-title text">All Donations</h3>
             </div>
             <div class="row">
-                <!-- Duplicate cards from here -->
-                <!-- <a href="/donation_page">
-                    <div class="col s12 m6 l4" >
-                        <div class="card hoverable medium">
-                          <div class="card-image">
-                            <img src="{{ url_for('static', filename='/hamper.jpeg') }}">
-                          </div>
-                          <div class="card-content">
-                            <span class="card-title text">Hampers of Grocery Items</span>
-                            <p class="card-text text">Happy Easter! In the spirit of the season I'd... </p>
-                            <div class="card-creator">
-                                <a class="profile-link text">John Doe</a>
-                            </div>
-                          </div>
-                          
-                        </div>
-                    </div>
-                </a>    -->
-                
-                {% if donations %}
-                    {% for donation in donations %}
+                {% for donation in donations %}
+                    {% if donation.requested == False %}
                     <a href="/donation_page/{{donation.donid}}">
                         <div class="col s12 m6 l4" >
                             <div class="card hoverable medium">
@@ -65,17 +46,17 @@
                             </div>
                             <div class="card-content">
                                 <span class="card-title text">{{ donation.title }}</span>
-                                <p class="card-text text">{{ donation.body }} </p>
+                                <p class="card-text text truncate">{{ donation.body }} </p>
                                 <div class="card-creator">
-                                    <a class="profile-link text">John Doe</a>
+                                    <a class="profile-link text">{{ donation.user.username }}</a>
                                 </div>
                             </div>
                             
                             </div>
                         </div>
                     </a> 
-                    {% endfor %}
-                {%  endif %}
+                    {% endif %}
+                {%  endfor %}
             </div>
         </div>
 

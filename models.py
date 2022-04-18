@@ -60,6 +60,11 @@ class Requests(db.Model):
     # req_items = db.relationship('RequestItems', backref='requests', lazy=True, cascade="all, delete-orphan")     #get all requested items
     req_items = db.Column(db.String(2000), nullable=False)
     userid = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    donated = db.Column(db.Boolean, default=False)  
+    directions = db.Column(db.String(1000), nullable=False, default="")
+    note = db.Column(db.String(1000), nullable=False, default="")
+    donator_username = db.Column(db.String(180), nullable=False, default="")
+    donator_email =  db.Column(db.String(180), nullable=False, default="")
 
     def toDict(self):
         return {
@@ -85,6 +90,9 @@ class Donations(db.Model):
     directions = db.Column(db.String(1000), nullable=False)
     note = db.Column(db.String(1000), nullable=False)
     userid  = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    requested = db.Column(db.Boolean, default=False)  
+    requestor_username = db.Column(db.String(180), nullable=False, default="")
+    requestor_email =  db.Column(db.String(180), nullable=False, default="")
     
     def toDict(self):
         return {
