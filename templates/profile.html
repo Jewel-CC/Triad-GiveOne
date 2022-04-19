@@ -33,18 +33,19 @@
 
         <div class="mycontainer ">
             <div class="update-profile row">
-                <div class="input-fields col s12 l6">
+                <form class="input-fields col s12 l6" method="post" action="/change_profile/{{current_user.id}}">
                     <h2 class="text">Profile Information</h2>
                     <p class="input-prompts text">Username</p>
                     <input type="text " placeholder="{{current_user.username}}" class="profile-input disabled" name="username">
                     <p class="input-prompts text">Email</p>
-                    <input type="email " placeholder="{{current_user.email}}" class="profile-input disabled" name="email">
+                    <p class="text">{{current_user.email}}</p>
+                    <!-- <input type="email " placeholder="{{current_user.email}}" class="profile-input disabled" name="email"> -->
                     <p class="input-prompts">Old Password</p>
-                    <input type="password " placeholder="********" class="profile-input disabled" name="password">
+                    <input type="password " placeholder="********" class="profile-input disabled" name="old-password">
                     <p class="input-prompts">New Password</p>
                     <input type="password " placeholder="********" class="profile-input disabled" name="new-password">
                     <button type="submit" id="profile-button">Submit</button>
-                </div>
+                </form>
 
                 <!-- <div class = "vertical"></div> -->
 

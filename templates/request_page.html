@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col s12 l8 request-body">
                     <h1 class="request-title text">{{request.title}}</h1>
-                    <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}" alt="Image of burnt house" class="request-image text">
+                    <img src="{{ request.request_image.get_url() }}" class="request-image text">
                     <p class="request-details text">{{request.body}}</p>
                     <p class="profile-link text">Username: {{ request.user.username }}</p>
                 </div>

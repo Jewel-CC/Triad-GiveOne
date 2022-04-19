@@ -19,6 +19,7 @@ class User(UserMixin, db.Model):
     # documents = db.Column(db.String(120), nullable=False)   #documents uploaded by user
     requests = db.relationship('Requests', backref='user', lazy=True, cascade="all, delete-orphan")     #get all requests by user
     donations = db.relationship('Donations', backref='user', lazy=True, cascade="all, delete-orphan")   #get all donations for user
+    uploads = db.relationship('Upload', backref='user', lazy=True, cascade="all, delete-orphan")
 
     def toDict(self):
       return {
@@ -65,21 +66,31 @@ class Requests(db.Model):
     note = db.Column(db.String(1000), nullable=False, default="")
     donator_username = db.Column(db.String(180), nullable=False, default="")
     donator_email =  db.Column(db.String(180), nullable=False, default="")
+    request_image = db.relationship('Request_Image', backref='requests', lazy=True, cascade="all, delete-orphan", uselist=False)
 
     def toDict(self):
         return {
             "reqid" : self.reqid,
             "title" : self.title,
             "body" : self.body,
-            "items" : self.items,
+            "items" : self.req_items,
             "userid" : self.userid
         }
 
-# class RequestItems(db.Model):
-#   itemid = db.Column(db.Integer, primary_key=True)
-#   item_name = db.Column(db.String(100), nullable=False)
-#   reqid = db.Column(db.Integer, db.ForeignKey('requests.reqid'), nullable=False)
+class Request_Image(db.Model):
+  img_id = db.Column(db.Integer, primary_key=True)
+  filename = db.Column(db.String, nullable=False)
+  reqid = db.Column(db.Integer, db.ForeignKey('requests.reqid'), nullable=False)
 
+  def __init__(self, file, reqid):
+      self.filename = store_file(file)
+      self.reqid = reqid
+
+  def remove_file(self):
+    remove_file(self.filename)
+
+  def get_url(self):
+    return f'/uploads/{self.filename}'
 
 class Donations(db.Model):
     donid = db.Column(db.Integer, primary_key=True)
@@ -93,30 +104,53 @@ class Donations(db.Model):
     requested = db.Column(db.Boolean, default=False)  
     requestor_username = db.Column(db.String(180), nullable=False, default="")
     requestor_email =  db.Column(db.String(180), nullable=False, default="")
+    donation_image = db.relationship('Donation_Image', backref='donations', lazy=True, cascade="all, delete-orphan", uselist=False)
     
     def toDict(self):
         return {
             "donid" : self.donid,
             "title" : self.title,
             "body" : self.body,
-            "items" : self.items,
+            "items" : self.don_items,
             "directions" : self.directions,
             "note" : self.note,
             "userid" : self.userid
         }
 
+class Donation_Image(db.Model):
+  img_id = db.Column(db.Integer, primary_key=True)
+  filename = db.Column(db.String, nullable=False)
+  donid = db.Column(db.Integer, db.ForeignKey('donations.donid'), nullable=False)
+
+  def __init__(self, file, donid):
+      self.filename = store_file(file)
+      self.donid = donid
+
+  def remove_file(self):
+    remove_file(self.filename)
+
+  def get_url(self):
+    return f'/uploads/{self.filename}'
+
+
+
 class Upload(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String, nullable=False)
+    userid = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __init__(self, file):
+    def __init__(self, file, userid):
       self.filename = store_file(file)
+      self.userid = userid
 
     def remove_file(self):
       remove_file(self.filename)
 
     def get_url(self):
       return f'/uploads/{self.filename}'
+
+
+
 
         
 # from ctypes import addressof

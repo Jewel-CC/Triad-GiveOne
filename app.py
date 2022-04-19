@@ -8,7 +8,7 @@ from datetime import timedelta
 from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
 import os
 
-from models import db, User, Requests, Donations, Upload
+from models import Donation_Image, db, User, Requests, Donations, Upload, Request_Image
 
 ''' Begin Flask Login Functions '''
 login_manager = LoginManager()
@@ -114,8 +114,20 @@ def create_request():
   db.session.add(new_request)
   db.session.commit() # save request
   flash('Request Created!')# send message
+
+  #upload file functionality
+  if 'file' not in request.files:
+    flash('No file in request')
+    return redirect(url_for('all_requests'))
+  file = request.files['file']
+  image = Request_Image(file, reqid=new_request.reqid)
+  db.session.add(image)
+  db.session.commit()
+  flash('file uploaded!')
+
   return redirect(url_for('all_requests'))# redirect to homepage
   
+
   
 # REQUEST PAGE
 @app.route('/request_page/<int:id>', methods=['GET'])
@@ -158,6 +170,17 @@ def create_donation():
   db.session.add(new_donation)
   db.session.commit() # save request
   flash('Donation Created!')# send message
+
+  #upload file functionality
+  if 'file' not in request.files:
+    flash('No file in request')
+    return redirect(url_for('all_donations'))
+  file = request.files['file']
+  image = Donation_Image(file, donid=new_donation.donid)
+  db.session.add(image)
+  db.session.commit()
+  flash('file uploaded!')
+
   return redirect(url_for('all_donations'))# redirect to homepage
 
 
@@ -196,7 +219,48 @@ def about_us():
 def profile():
   requests = Requests.query.filter_by(userid = current_user.id).all()
   donations = Donations.query.filter_by(userid = current_user.id).all()
-  return render_template('profile.html', requests=requests, donations=donations)
+  uploads = Upload.query.filter_by(userid=current_user.id).all()
+  return render_template('profile.html', requests=requests, donations=donations, uploads=uploads)
+
+@app.route('/upload', methods=['POST'])
+def upload_action():
+  if 'file' not in request.files:
+    flash('No file in request')
+    return redirect('/profile')
+  file = request.files['file']
+  newupload = Upload(file, userid=current_user.id)
+  db.session.add(newupload)
+  db.session.commit()
+  flash('file uploaded!')
+  return redirect('/profile')
+
+@app.route('/deleteUpload/<int:id>', methods=['GET'])
+def delete_file(id):
+  upload = Upload.query.get(id)
+  if upload:
+    upload.remove_file()
+    db.session.delete(upload)
+    db.session.commit()
+    flash('Upload Deleted')
+  return redirect('/profile')  
+
+# CHANGE PROFILE INFO
+@app.route('/change_profile/<int:id>', methods=['POST'])
+@login_required
+def change_profile(id):
+  profile = User.query.filter_by(id=id).first()
+  data = request.form
+  if profile.check_password(data['old-password']):
+    profile.set_password(data['new-password'])
+  if data['username']:
+    profile.username = data['username']
+  db.session.add(profile)
+  db.session.commit()
+  return redirect(url_for('profile'))
+
+
+
+
 
 # ACCEPT/CANCEL DONATION
 @app.route('/accept_cancel_donation/<int:id>', methods=['POST'])
@@ -234,61 +298,10 @@ def accept_cancel_request(id):
 
   return redirect(url_for('profile'))
 
-
-# # LOGOUT USER
-# @app.route('/logout', methods=['GET'])
-# @login_required
-# def logout():
-#   logout_user()
-#   flash('Logged Out!')
-#   return redirect(url_for('login')) 
-
-# # UPLOADING FILES  FUNCTIONALITY
-
-# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-# def allowed_file(filename):
-#     return '.' in filename and \
-#            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-# @app.route('/uploads/<path:name>', methods=["GET"])
-# def download_file(name):
-#   return send_from_directory('uploads', name)
-
-# @app.route('/profile', methods=['GET'])
-# def uploader():
-#   uploads = Upload.query.all()
-#   return render_template('profile.html', uploads=uploads)
-
-# @app.route('/upload', methods=['POST'])
-# def upload_action():
-#   if 'file' not in request.files:
-#     flash('No file in request')
-#     return redirect('/uploader')
-#   file = request.files['file']
-#   newupload = Upload(file)
-#   db.session.add(newupload)
-#   db.session.commit()
-#   flash('file uploaded!')
-#   return redirect('/profile')
-
-# @app.route('/deleteUpload/<int:id>', methods=['GET'])
-# def delete_file(id):
-#   upload = Upload.query.get(id)
-#   if upload:
-#     upload.remove_file()
-#     db.session.delete(upload)
-#     db.session.commit()
-#     flash('Upload Deleted')
-#   return redirect('/profile')  
-
-# @app.route('/home', methods=['GET'])
-# def home():
-#   return render_template('homepage.html')
-
-# @app.route('/about', methods=['GET'])
-# def about_us():
-#   return render_template('about_us.html')
+# GET UPLOADED FILE FROM UPLOADS FOLDER
+@app.route('/uploads/<path:name>', methods=["GET"])
+def download_file(name):
+  return send_from_directory('uploads', name)
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8080, debug=True)

@@ -44,11 +44,14 @@
                             <div class="col s12 m6 l4" >
                                 <div class="card hoverable medium">
                                     <div class="card-image">
-                                        <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
+                                        <!-- <img src="{{ url_for('static', filename='/BurntHouse.jpg') }}"> -->
+                                        <img src="{{ request.request_image.get_url() }}">
+                                        
                                     </div>
                                     <div class="card-content">
                                         <span class="card-title text">{{ request.title }}</span>
                                         <p class="card-text text truncate">{{ request.body }} </p>
+                                        <!-- <p class="text">{{request.request_image.filename}}</p> -->
                                         <div class="card-creator">
                                             <a class="profile-link text">{{request.user.username}}</a>
                                         </div>
@@ -67,7 +70,7 @@
                 <div class="modal-content">
                     <h2 class="text">Make a Request</h2>
                     
-                    <form class="form" method="post" action="/create_request">
+                    <form class="form" method="post" action="/create_request" enctype="multipart/form-data">
                         <div class="input-field col s6">
                             <input id="title" type="text" class="validate" name="title">
                             <label for="title">Request Title</label>
@@ -83,10 +86,10 @@
                         <div class="file-field input-field col s12">
                             <div class="btn">
                               <span>File</span>
-                              <input type="file" name="file">
+                              <input type="file" accept="image/*" name="file">
                             </div>
                             <div class="file-path-wrapper">
-                              <input class="file-path validate" type="text"/>
+                              <input class="file-path validate" type="text" name="file_name"/>
                             </div>
                         </div>
                         <div class="col s12 confirm-btn">
