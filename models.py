@@ -9,7 +9,7 @@ from flask_login import UserMixin
 from uploads import store_file, remove_file
 
 
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={"autoflush": False})
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -7,6 +7,7 @@ from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
 from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
 import os
+import smtplib, datetime
 
 from models import Donation_Image, db, User, Requests, Donations, Upload, Request_Image
 
@@ -268,6 +269,38 @@ def change_profile(id):
 def accept_cancel_donation(id):
   req = Requests.query.filter_by(reqid=id).first()
   if request.form['button'] == 'Accept':     #if accepted, get request and delete it from db
+    #send email if before cutoff date (After May 30th Gmail not allowing 3rd party signin)
+    cutoff_date = datetime.datetime(2022, 5, 30)
+    if datetime.datetime.now() < cutoff_date:
+      # Create messages to send to requestor and donator
+      requestor_message = '''Hello {},
+      You have accepted a donation for your request entitled "{}".
+      Requested items: {}
+      Pickup Drections: {}
+      Note: {}
+      Donator Username: {}
+      Donator Email: {}
+      Be sure to stay safe when meeting to collect any items.
+      Thank you for using GiveOne. 
+      Best Wishes,
+      The GiveOne Team'''.format(current_user.username, req.title, req.req_items, req.directions, req.note, req.donator_username, req.donator_email)
+      donator_message = '''Hello {},
+      Your donation to the request entitled "{}" has been accepted.
+      Requested items: {}
+      Pickup Drections: {}
+      Note: {}
+      Requestor Username: {}
+      Requestor Email: {}
+      Be sure to stay safe when meeting to donate any items.
+      Thank you for using GiveOne. 
+      Best Wishes,
+      The GiveOne Team'''.format(req.donator_username, req.title, req.req_items, req.directions, req.note, current_user.username, current_user.email)
+      # send messages via email
+      server = smtplib.SMTP("smtp.gmail.com", 587)
+      server.starttls()
+      server.login("giveone1project@gmail.com", "GiveOne1!")
+      server.sendmail("giveone1project@gmail.com", current_user.email, requestor_message) # send email to requestor
+      server.sendmail("giveone1project@gmail.com", req.donator_email, donator_message)  # send email to donator
     db.session.delete(req)
     db.session.commit()
   else:   # otherwise, remove donator info from request
@@ -287,6 +320,38 @@ def accept_cancel_donation(id):
 def accept_cancel_request(id):
   don = Donations.query.filter_by(donid=id).first()
   if request.form['button'] == 'Accept':     #if accepted, get request and delete it from db
+    #send email if before cutoff date (After May 30th Gmail not allowing 3rd party signin)
+    cutoff_date = datetime.datetime(2022, 5, 30)
+    if datetime.datetime.now() < cutoff_date:
+      # Create messages to send to requestor and donator
+      donator_message = '''Hello {},
+      You have accepted a request to your donation entitled "{}".
+      Donated items: {}
+      Pickup Drections: {}
+      Note: {}
+      Requestor Username: {}
+      Requestor Email: {}
+      Be sure to stay safe when meeting to donate any items.
+      Thank you for using GiveOne. 
+      Best Wishes,
+      The GiveOne Team'''.format(current_user.username, don.title, don.don_items, don.directions, don.note, don.requestor_username, don.requestor_email)
+      requestor_message = '''Hello {},
+      Your request to the donation entitled "{}" has been accepted.
+      Donated items: {}
+      Pickup Drections: {}
+      Note: {}
+      Donator Username: {}
+      Donator Email: {}
+      Be sure to stay safe when meeting to collect any items.
+      Thank you for using GiveOne. 
+      Best Wishes,
+      The GiveOne Team'''.format(don.requestor_username, don.title, don.don_items, don.directions, don.note, current_user.username, current_user.email)
+      # send messages via email
+      server = smtplib.SMTP("smtp.gmail.com", 587)
+      server.starttls()
+      server.login("giveone1project@gmail.com", "GiveOne1!")
+      server.sendmail("giveone1project@gmail.com", current_user.email, donator_message) # send email to requestor
+      server.sendmail("giveone1project@gmail.com", don.requestor_email, requestor_message)  # send email to donator
     db.session.delete(don)
     db.session.commit()
   else:   # otherwise, remove donator info from request

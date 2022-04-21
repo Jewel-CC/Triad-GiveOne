@@ -100,7 +100,7 @@
                             <div class="activity-cards center-align  col s12">
                                 <div class="card horizontal hoverable row">
                                     <div class="card-image col s12 m6">
-                                        <img class="card_image" src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
+                                        <img class="card_image" src="{{ request.request_image.get_url() }}">
                                     </div>
                                     <div class="card-stacked col s12 m6">
                                         <div class="card-content">
@@ -144,7 +144,7 @@
                             <div class="activity-cards center-align  col s12">
                                 <div class="card horizontal hoverable row">
                                     <div class="card-image col s12 m6">
-                                        <img class="card_image" src="{{ url_for('static', filename='/BurntHouse.jpg') }}">
+                                        <img class="card_image" src="{{ donation.donation_image.get_url() }}">
                                     </div>
                                     <div class="card-stacked col s12 m6">
                                         <div class="card-content">
