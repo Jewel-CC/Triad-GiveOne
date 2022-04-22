@@ -23,14 +23,6 @@ def load_user(user_id):
 ''' Begin boilerplate code '''
 def create_app():
   app = Flask(__name__, static_url_path='')
-  # app.config['DBURI'] = os.environ.get('DBURI')
-  # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///project.db"
-  # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-  # app.config['DATABASE_URL'] =  os.environ.get('DATABASE_URL')
-  # app.config['DBURI'] =  os.environ.get('DBURI')
-  # app.config['SQLITEDB'] = False
-  # app.config['JWTDELTADAYS'] = os.environ.get('JWTDELTADAYS')
-  # app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
   app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp-database.db"
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
   app.config['SQLITEDB'] = True
