@@ -8,6 +8,7 @@ from datetime import timedelta
 from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
 import os
 import smtplib, datetime
+from flask.ext.heroku import Heroku
 
 from models import Donation_Image, db, User, Requests, Donations, Upload, Request_Image
 
@@ -22,12 +23,15 @@ def load_user(user_id):
 ''' Begin boilerplate code '''
 def create_app():
   app = Flask(__name__, static_url_path='')
-  app.config['DATABASE_URL'] = os.environ.get('DATABASE_URL')
-  # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+  # app.config['DBURI'] = os.environ.get('DBURI')
+  # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///project.db"
+  # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+  app.config['DATABASE_URL'] =  os.environ.get('DATABASE_URL')
   app.config['DBURI'] =  os.environ.get('DBURI')
-  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
   app.config['SQLITEDB'] = False
+  app.config['JWTDELTADAYS'] = os.environ.get('JWTDELTADAYS')
   app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+
 
   CORS(app)
   app.config['PREFERRED_URL_SCHEME'] = 'https'
@@ -35,6 +39,7 @@ def create_app():
   app.config['UPLOAD_FOLDER'] = "uploads"
   photos = UploadSet('photos', TEXT + DOCUMENTS + IMAGES)
   login_manager.init_app(app) # uncomment if using flask login
+  heroku = Heroku(app)
   db.init_app(app)
   db.create_all(app=app)
   configure_uploads(app, photos)
