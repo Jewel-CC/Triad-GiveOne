@@ -22,9 +22,11 @@ def load_user(user_id):
 ''' Begin boilerplate code '''
 def create_app():
   app = Flask(__name__, static_url_path='')
-  app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
+  app.config['DATABASE_URI'] = 'postgres://ooghcwqvooawaz:783d64f954ba54c0c7144c80e75ce659b5dd26c6435341702e1a466e202d3a68@ec2-54-173-77-184.compute-1.amazonaws.com:5432/dcpsit6sfoskj1'
+  app.config['DBURI'] = 'postgres://ooghcwqvooawaz:783d64f954ba54c0c7144c80e75ce659b5dd26c6435341702e1a466e202d3a68@ec2-54-173-77-184.compute-1.amazonaws.com:5432/dcpsit6sfoskj1'
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-  app.config['SECRET_KEY'] = "MYSECRET"
+  app.config['SQLITEDB'] = False
+  app.config['SECRET_KEY'] = "SECRET"
   CORS(app)
   app.config['PREFERRED_URL_SCHEME'] = 'https'
   app.config['UPLOADED_PHOTOS_DEST'] = "uploads"
