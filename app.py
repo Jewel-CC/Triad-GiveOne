@@ -23,7 +23,7 @@ def load_user(user_id):
 def create_app():
   app = Flask(__name__, static_url_path='')
   app.config['DATABASE_URL'] = os.environ.get('DATABASE_URL')
-  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+  # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
   app.config['DBURI'] =  os.environ.get('DBURI')
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
   app.config['SQLITEDB'] = False
