@@ -25,7 +25,7 @@ def create_app():
   app = Flask(__name__, static_url_path='')
   # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp-database.db"
   # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-  app.config['DATABASE_URL'] = os.environ.get('DATABASE_URL')
+  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
   app.config['SQLITEDB'] = False
   app.config['SECRET_KEY'] = "SECRET"
   app.config['JWT_EXPIRATION_DELTA'] = 7
