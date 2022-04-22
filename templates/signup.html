@@ -6,19 +6,28 @@
         <link rel="preconnect" href="https://fonts.googleapis.com"> 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+        <!-- Materialize -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <script>
+            function show_toasts(){
+                let toasts = document.querySelectorAll('[id=toast-flash]');
+                for(toast of toasts){
+                toast.click();
+                }
+                // document.getElementById("test").click(); 
+            }
+        </script>
     </head>
-    <body>
-        <!-- {% with messages = get_flashed_messages() %}
+    <body onload="show_toasts()">
+        {% with messages = get_flashed_messages() %}
         {% if messages %}
-                <ul class="flashes">
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            </div>
-        </nav>
+            {% for message in messages %}
+                <a onclick="M.toast({html: '{{ message }}', classes: 'rounded'});" class="btn" id="toast-flash">Toast!</a>
+            {% endfor %}
         {% endif %}
-        {% endwith %} -->
+        {% endwith %}
 
         <div class="wrapper">
             <img src="{{ url_for('static', filename='/LoginImage.jpg') }}" alt="Man and son laughing on pavement" class="side-image">
@@ -29,18 +38,18 @@
                     <h2 class="signup-subheading">Sign Up</h1>
                     <div class="input-fields">
                         <p class="signup-prompts">Email</p>
-                        <input type="email" placeholder="john.doe@email.com" class="signup-input" name="email">
+                        <input type="email" placeholder="john.doe@email.com" class="signup-input browser-default" name="email">
                         <p class="signup-prompts">Username</p>
-                        <input type="text" placeholder="John Doe" class="signup-input" name="username">
+                        <input type="text" placeholder="John Doe" class="signup-input browser-default" name="username">
                         <p class="signup-prompts">Password</p>
-                        <input type="password" placeholder="********" class="signup-input" name="password">
+                        <input type="password" placeholder="********" class="signup-input browser-default" name="password">
                         <p class="signup-prompts">Confirm Password</p>
-                        <input type="password" placeholder="********" class="signup-input" name="confirm-password">
+                        <input type="password" placeholder="********" class="signup-input browser-default" name="confirm-password">
                         <div  id="remember-forgot-div">
-                            <input type="checkbox" id="remember-me" value="Remember Me">
+                            <input type="checkbox" id="remember-me" value="Remember Me browser-default">
                             <label for="remember-me">Remember me</label>
                             <a id="forgot-password" href="#">Forgot Password</a>
-                        </div>`
+                        </div>
                     </div>
                     <button id="register-button" type="submit">Sign Up</button>
                     <div class="or">

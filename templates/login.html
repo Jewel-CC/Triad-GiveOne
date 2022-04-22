@@ -7,9 +7,27 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
         <!-- Materialize css -->
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">  -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+            function show_toasts(){
+                let toasts = document.querySelectorAll('[id=toast-flash]');
+                for(toast of toasts){
+                toast.click();
+                }
+            }
+        </script>
     </head>
-    <body>
+
+    <body onload="show_toasts()">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <a onclick="M.toast({html: '{{ message }}', classes: 'rounded'});" class="btn" id="toast-flash">Toast!</a>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
         <div class="wrapper">            
             <img src="{{ url_for('static', filename='/LoginImage.jpg') }}" alt="Man and son laughing on pavement" class="side-image">
             <form class="form" method="post" action="/login">
@@ -19,11 +37,11 @@
                     <h2 class="login-subheading">Login</h1>
                     <div class="input-fields">
                         <p class="login-prompts">Username</p>
-                        <input type="text" placeholder="John Doe" class="login-input" name="username">
+                        <input type="text" placeholder="John Doe" class="login-input browser-default" name="username">
                         <p class="login-prompts">Password</p>
-                        <input type="password" placeholder="********" class="login-input" name="password">
+                        <input type="password" placeholder="********" class="login-input browser-default" name="password">
                         <div  id="remember-forgot-div">
-                            <input type="checkbox" id="remember-me" value="Remember Me">
+                            <input type="checkbox" id="remember-me" value="Remember Me browser-default">
                             <label for="remember-me">Remember me</label>
                             <a id="forgot-password" href="#">Forgot Password</a>
                         </div>

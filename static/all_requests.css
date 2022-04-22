@@ -155,3 +155,7 @@ nav ul li a:hover {
 .confirm-btn{
     margin-bottom: 20px;
 }
+
+#toast-flash{
+    display:none;
+}

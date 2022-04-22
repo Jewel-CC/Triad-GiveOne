@@ -79,3 +79,7 @@ nav ul li a:hover {
     font-weight: 100;
     text-decoration: underline;
 }
+
+#toast-flash{
+    display:none;
+}

@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+   <head>
         <title>GiveOne</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='/homepage.css') }}">
         <!-- <link rel="stylesheet" href="/static/homepage.css"> -->
         <!-- Materialize css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <!-- Materialize Icons -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Get fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">  
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-    </head>
+        <script>
+            function show_toasts(){
+               let toasts = document.querySelectorAll('[id=toast-flash]');
+               for(toast of toasts){
+               toast.click();
+               }
+            }
+         </script>
+   </head>
+   
+   <body onload="show_toasts()">
+     {% with messages = get_flashed_messages() %}
+     {% if messages %}
+         {% for message in messages %}
+             <a onclick="M.toast({html: '{{ message }}', classes: 'rounded'});" class="btn" id="toast-flash">Toast!</a>
+         {% endfor %}
+     {% endif %}
+     {% endwith %}
 
-    <body>
       <div class="mycontainer">
          <div class="row">
              <nav class="col s12 nav-bar">

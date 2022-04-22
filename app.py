@@ -64,7 +64,7 @@ def signupAction():
     return redirect(url_for('homepage'))# redirect to homepage
   except IntegrityError: # attempted to insert a duplicate user
     db.session.rollback()
-    flash("username or email already exists") # error message
+    flash("Username or email already exists") # error message
   return redirect(url_for('signup'))
 
 
@@ -78,7 +78,7 @@ def loginAction():
   data = request.form
   user = User.query.filter_by(username = data['username']).first()
   if user and user.check_password(data['password']): # check credentials
-    flash('Logged in successfully.') # send message to next page
+    flash('Logged in.') # send message to next page
     login_user(user) # login the user
     return redirect(url_for('homepage')) # redirect to main page if login successful
   else:
@@ -124,7 +124,6 @@ def create_request():
   image = Request_Image(file, reqid=new_request.reqid)
   db.session.add(image)
   db.session.commit()
-  flash('file uploaded!')
 
   return redirect(url_for('all_requests'))# redirect to homepage
   
@@ -153,6 +152,7 @@ def donate(id):
   req.donator_email = current_user.email
   db.session.add(req)
   db.session.commit()
+  flash('Donation made.')
   return redirect(url_for('all_requests'))
 
 
@@ -180,7 +180,6 @@ def create_donation():
   image = Donation_Image(file, donid=new_donation.donid)
   db.session.add(image)
   db.session.commit()
-  flash('file uploaded!')
 
   return redirect(url_for('all_donations'))# redirect to homepage
 
@@ -205,6 +204,7 @@ def make_request(id):
   don.requestor_email = current_user.email
   db.session.add(don)
   db.session.commit()
+  flash('Donation requested.')
   return redirect(url_for('all_donations'))
 
 
@@ -232,7 +232,7 @@ def upload_action():
   newupload = Upload(file, userid=current_user.id)
   db.session.add(newupload)
   db.session.commit()
-  flash('file uploaded!')
+  flash('Document uploaded!')
   return redirect('/profile')
 
 @app.route('/deleteUpload/<int:id>', methods=['GET'])
@@ -242,7 +242,7 @@ def delete_file(id):
     upload.remove_file()
     db.session.delete(upload)
     db.session.commit()
-    flash('Upload Deleted')
+    flash('Document deleted')
   return redirect('/profile')  
 
 # CHANGE PROFILE INFO
@@ -257,6 +257,7 @@ def change_profile(id):
     profile.username = data['username']
   db.session.add(profile)
   db.session.commit()
+  flash('Change committed.')
   return redirect(url_for('profile'))
 
 
@@ -303,6 +304,7 @@ def accept_cancel_donation(id):
       server.sendmail("giveone1project@gmail.com", req.donator_email, donator_message)  # send email to donator
     db.session.delete(req)
     db.session.commit()
+    flash('Donation accepted.')
   else:   # otherwise, remove donator info from request
     req.donated = False  
     req.directions = ""
@@ -311,6 +313,7 @@ def accept_cancel_donation(id):
     req.donator_email = ""
     db.session.add(req)
     db.session.commit()
+    flash('Donation canceled.')
 
   return redirect(url_for('profile'))
 
@@ -354,12 +357,14 @@ def accept_cancel_request(id):
       server.sendmail("giveone1project@gmail.com", don.requestor_email, requestor_message)  # send email to donator
     db.session.delete(don)
     db.session.commit()
+    flash('Request accepted.')
   else:   # otherwise, remove donator info from request
     don.requested = False  
     don.requestor_username = ""  
     don.requestor_email = ""
     db.session.add(don)
     db.session.commit()
+    flash('Flash cancelled')
 
   return redirect(url_for('profile'))
 
@@ -367,6 +372,13 @@ def accept_cancel_request(id):
 @app.route('/uploads/<path:name>', methods=["GET"])
 def download_file(name):
   return send_from_directory('uploads', name)
+
+
+#test
+@app.route('/test', methods=["GET"])
+def test():
+  return render_template('test.html')
+
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8080, debug=True)

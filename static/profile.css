@@ -297,3 +297,7 @@ nav ul li a:hover {
     height: 42px;
     width: 142px;
 }
+
+#toast-flash{
+    display:none;
+}

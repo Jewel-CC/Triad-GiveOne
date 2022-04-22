@@ -148,3 +148,7 @@ nav ul li a:hover {
 .modal{
     border-radius: 10px !important;
 }
+
+#toast-flash{
+    display:none;
+}
