@@ -284,7 +284,7 @@ def accept_cancel_donation(id):
       Be sure to stay safe when meeting to collect any items.
       Thank you for using GiveOne. 
       Best Wishes,
-      The GiveOne Team'''.format(current_user.username, req.title, req.req_items, req.directions, req.note, req.donator_username, req.donator_email)
+      The GiveOne Team'''.format(current_user.username, req.title, req.req_items, req.directions, req.note, req.donator_username, req.donator_email).encode("utf-8")
       donator_message = '''Hello {},
       Your donation to the request entitled "{}" has been accepted.
       Requested items: {}
@@ -295,7 +295,7 @@ def accept_cancel_donation(id):
       Be sure to stay safe when meeting to donate any items.
       Thank you for using GiveOne. 
       Best Wishes,
-      The GiveOne Team'''.format(req.donator_username, req.title, req.req_items, req.directions, req.note, current_user.username, current_user.email)
+      The GiveOne Team'''.format(req.donator_username, req.title, req.req_items, req.directions, req.note, current_user.username, current_user.email).encode("utf-8")
       # send messages via email
       server = smtplib.SMTP("smtp.gmail.com", 587)
       server.starttls()
