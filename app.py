@@ -37,8 +37,8 @@ def create_app():
   photos = UploadSet('photos', TEXT + DOCUMENTS + IMAGES)
   login_manager.init_app(app) # uncomment if using flask login
   # heroku = Heroku(app)
-  db.init_app(app)
-  db.create_all(app=app)
+  # db.init_app(app)
+  # db.create_all(app=app)
   configure_uploads(app, photos)
   return app
 
