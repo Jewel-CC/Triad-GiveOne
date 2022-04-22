@@ -27,6 +27,7 @@ def create_app():
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
   app.config['SQLITEDB'] = False
   app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+  
   CORS(app)
   app.config['PREFERRED_URL_SCHEME'] = 'https'
   app.config['UPLOADED_PHOTOS_DEST'] = "uploads"
