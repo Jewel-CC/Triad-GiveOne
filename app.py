@@ -8,7 +8,7 @@ from datetime import timedelta
 from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
 import os
 import smtplib, datetime
-from flask.ext.heroku import Heroku
+# from flask.ext.heroku import Heroku
 
 from models import Donation_Image, db, User, Requests, Donations, Upload, Request_Image
 
@@ -26,12 +26,16 @@ def create_app():
   # app.config['DBURI'] = os.environ.get('DBURI')
   # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///project.db"
   # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-  app.config['DATABASE_URL'] =  os.environ.get('DATABASE_URL')
-  app.config['DBURI'] =  os.environ.get('DBURI')
-  app.config['SQLITEDB'] = False
-  app.config['JWTDELTADAYS'] = os.environ.get('JWTDELTADAYS')
-  app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-
+  # app.config['DATABASE_URL'] =  os.environ.get('DATABASE_URL')
+  # app.config['DBURI'] =  os.environ.get('DBURI')
+  # app.config['SQLITEDB'] = False
+  # app.config['JWTDELTADAYS'] = os.environ.get('JWTDELTADAYS')
+  # app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+  app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp-database.db"
+  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+  app.config['SQLITEDB'] = True
+  app.config['SECRET_KEY'] = "SECRET"
+  app.config['JWT_EXPIRATION_DELTA'] = 7
 
   CORS(app)
   app.config['PREFERRED_URL_SCHEME'] = 'https'
@@ -39,7 +43,7 @@ def create_app():
   app.config['UPLOAD_FOLDER'] = "uploads"
   photos = UploadSet('photos', TEXT + DOCUMENTS + IMAGES)
   login_manager.init_app(app) # uncomment if using flask login
-  heroku = Heroku(app)
+  # heroku = Heroku(app)
   db.init_app(app)
   db.create_all(app=app)
   configure_uploads(app, photos)
