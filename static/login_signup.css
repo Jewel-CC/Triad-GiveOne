@@ -34,7 +34,7 @@
     width: 50vw;
     height: 100vh;
     position: absolute;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
 }
 
