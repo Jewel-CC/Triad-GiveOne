@@ -23,7 +23,7 @@ def load_user(user_id):
 ''' Begin boilerplate code '''
 def create_app():
   app = Flask(__name__, static_url_path='')
-  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('POSTGRES_DATABASE_URL')
+  app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://orjdcbgimsxvtk:a8ba743e98817eaac9170f1e4782fd0264ba8d82d89d7785cd674b170c2e086c@ec2-3-217-251-77.compute-1.amazonaws.com:5432/d30t3p1erkpm6s"
   
   app.config['SQLITEDB'] = False
   app.config['SECRET_KEY'] = "SECRET"
