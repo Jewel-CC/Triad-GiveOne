@@ -23,16 +23,16 @@ Steps on how to deploy the application via heroku:
       SQLITEDB:False
 3. Go to resources, search and find Heroku Postgres and submit the form to create a Postgres Database for your app
 4. Back in the application, inside the create_app() function in app.py, replace the app.config lines with:
-      app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-      app.config['SQLITEDB'] = False
-      app.config['SECRET_KEY'] = "SECRET"
-      app.config['JWT_EXPIRATION_DELTA'] = 7
+      app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') 
+      app.config['SQLITEDB'] = False 
+      app.config['SECRET_KEY'] = "SECRET" 
+      app.config['JWT_EXPIRATION_DELTA'] = 7 
 5. To deploy using the heroku CLI do the following within your terminal:
-      heroku login
-      heroku git:clone -a "your app name" 
-      cd "your app name"
-      git add .
-      git commit -am "message"
-      git push heroku main
+      heroku login 
+      heroku git:clone -a "your app name"  
+      cd "your app name" 
+      git add . 
+      git commit -am "message" 
+      git push heroku main 
       
       
