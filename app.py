@@ -24,6 +24,7 @@ def load_user(user_id):
 def create_app():
   app = Flask(__name__, static_url_path='')
   app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('POSTGRES_DATABASE_URL')
+  
   app.config['SQLITEDB'] = False
   app.config['SECRET_KEY'] = "SECRET"
   app.config['JWT_EXPIRATION_DELTA'] = 7
