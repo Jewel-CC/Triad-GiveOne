@@ -23,9 +23,9 @@ def load_user(user_id):
 ''' Begin boilerplate code '''
 def create_app():
   app = Flask(__name__, static_url_path='')
-  app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://orjdcbgimsxvtk:a8ba743e98817eaac9170f1e4782fd0264ba8d82d89d7785cd674b170c2e086c@ec2-3-217-251-77.compute-1.amazonaws.com:5432/d30t3p1erkpm6s"
-  
-  app.config['SQLITEDB'] = False
+  app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp-database"
+  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+  app.config['SQLITEDB'] = True
   app.config['SECRET_KEY'] = "SECRET"
   app.config['JWT_EXPIRATION_DELTA'] = 7
 
@@ -92,7 +92,7 @@ def loginAction():
 
 #LOGOUT FUNCTIONALITY
 @app.route('/logout', methods= ['GET'])
-#Deleted log
+@login_required
 def logout():
   logout_user()
   flash('Logged Out!')
@@ -107,13 +107,13 @@ def homepage():
 
 # ALL REQUESTS FUNCTIONALITY
 @app.route('/all_requests', methods=['GET'])
-# #Deleted log
+@login_required
 def all_requests():
   requests = Requests.query.all()
   return render_template('all_requests.html', requests=requests) 
 
 @app.route('/create_request', methods=['POST'])
-# #Deleted log
+@login_required
 def create_request():
   data = request.form  #get form data 
   new_request = Requests(title=data['title'], body=data['body'], req_items=data['req_items'], userid=current_user.id)   #create request object
@@ -136,7 +136,7 @@ def create_request():
   
 # REQUEST PAGE
 @app.route('/request_page/<int:id>', methods=['GET'])
-# #Deleted log
+@login_required
 def request_page(id):
   request = Requests.query.filter_by(userid=current_user.id, reqid=id).first()    #find that request in  database
   if ',' in request.req_items:
@@ -146,7 +146,7 @@ def request_page(id):
 
 # DONATE TO A REQUEST
 @app.route('/donate/<int:id>', methods=['POST'])
-# #Deleted log
+@login_required
 def donate(id):
   data = request.form  #get form data 
   req = Requests.query.filter_by(reqid=id).first()
@@ -163,13 +163,13 @@ def donate(id):
 
 # ALL DONATIONS FUNCTIONALITY
 @app.route('/all_donations', methods=['GET'])
-#Deleted log
+@login_required
 def all_donations():
   donations = Donations.query.all()
   return render_template('all_donations.html', donations=donations) 
 
 @app.route('/create_donation', methods=['POST'])
-# #Deleted log
+@login_required
 def create_donation():
   data = request.form  #get form data 
   new_donation = Donations(title=data['title'], body=data['body'], don_items=data['don_items'], directions=data['directions'], note=data['note'], userid=current_user.id)   #create request object
@@ -191,7 +191,7 @@ def create_donation():
 
 # DONATION PAGE
 @app.route('/donation_page/<int:id>', methods=['GET'])
-# #Deleted log
+@login_required
 def donation_page(id):
   donation = Donations.query.filter_by(userid=current_user.id, donid=id).first()    #find that donation in  database
   if ',' in donation.don_items:
@@ -200,7 +200,7 @@ def donation_page(id):
 
 # REQUEST A DONATION
 @app.route('/request/<int:id>', methods=['POST'])
-# #Deleted log
+@login_required
 def make_request(id):
   data = request.form  #get form data 
   don = Donations.query.filter_by(donid=id).first()
@@ -215,13 +215,13 @@ def make_request(id):
 
 # ABOUT US
 @app.route('/about_us', methods=['GET'])
-# #Deleted log
+@login_required
 def about_us():
   return render_template('about_us.html') 
 
 # PROFILE 
 @app.route('/profile', methods=['GET'])
-# #Deleted log
+@login_required
 def profile():
   requests = Requests.query.filter_by(userid = current_user.id).all()
   donations = Donations.query.filter_by(userid = current_user.id).all()
@@ -252,7 +252,7 @@ def delete_file(id):
 
 # CHANGE PROFILE INFO
 @app.route('/change_profile/<int:id>', methods=['POST'])
-#Deleted log
+@login_required
 def change_profile(id):
   profile = User.query.filter_by(id=id).first()
   data = request.form
@@ -271,7 +271,7 @@ def change_profile(id):
 
 # ACCEPT/CANCEL DONATION
 @app.route('/accept_cancel_donation/<int:id>', methods=['POST'])
-# #Deleted log
+@login_required
 def accept_cancel_donation(id):
   req = Requests.query.filter_by(reqid=id).first()
   if request.form['button'] == 'Accept':     #if accepted, get request and delete it from db
@@ -324,7 +324,7 @@ def accept_cancel_donation(id):
 
 # ACCEPT/CANCEL REQUEST
 @app.route('/accept_cancel_request/<int:id>', methods=['POST'])
-# #Deleted log
+@login_required
 def accept_cancel_request(id):
   don = Donations.query.filter_by(donid=id).first()
   if request.form['button'] == 'Accept':     #if accepted, get request and delete it from db
